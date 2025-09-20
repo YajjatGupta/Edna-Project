@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Set up a dark blue and black base theme */
+    --background: 220 10% 10%; /* A deep, dark gray-blue */
+    --foreground: 210 20% 98%; /* Off-white for readability */
+
+    --card: 220 10% 12%; /* Slightly lighter than background */
+    --card-foreground: 210 20% 98%;
+
+    --popover: 220 10% 12%;
+    --popover-foreground: 210 20% 98%;
+
+    /* Primary and Accent Colors (Blue and a complementary accent) */
+    --primary: 210 90% 60%; /* A vibrant blue for primary elements */
+    --primary-foreground: 210 20% 98%; /* Off-white for text on primary */
+
+    --secondary: 220 15% 20%; /* A desaturated secondary color */
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 220 15% 15%; /* Muted backgrounds for subtle distinction */
+    --muted-foreground: 210 10% 60%; /* A light gray for muted text */
+
+    --accent: 220 15% 20%; /* Accent backgrounds, similar to secondary */
+    --accent-foreground: 210 20% 98%;
+
+    /* Border and Ring Colors */
+    --border: 220 15% 30%; /* A distinct but dark border color */
+    --input: 220 15% 20%;
+    --ring: 210 90% 60%; /* The same vibrant blue for focus rings */
+
+    /* Other Utility Colors */
+    --destructive: 0 84.2% 60.2%; /* Red for errors */
+    --destructive-foreground: 210 20% 98%;
+    --radius: 0.5rem;
+
+    /* Chart Colors (adjust to fit theme) */
+    --chart-1: 210 70% 50%;
+    --chart-2: 240 60% 50%;
+    --chart-3: 270 80% 55%;
+    --chart-4: 300 65% 60%;
+    --chart-5: 330 75% 55%;
+  }
+
+  /* The .dark block is no longer needed since the default theme is dark. */
+  /* If you want to support a light theme later, you can add it back here. */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
