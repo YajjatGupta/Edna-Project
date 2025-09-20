@@ -1,13 +1,24 @@
 // components/login-modal.tsx
-import React from 'react';
+import React, { useState } from 'react';
 
 interface LoginModalProps {
   isOpen: boolean;
   onSwitchToSignup: () => void;
   onClose: () => void;
+  onLogin?: (email: string, password: string) => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onSwitchToSignup, onClose }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onSwitchToSignup, onClose, onLogin }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onLogin) {
+      onLogin(email, password); // call backend handler
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -26,7 +37,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onSwitchToSignup, onClo
           &times;
         </button>
         <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium mb-1">
               Email
@@ -34,8 +45,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onSwitchToSignup, onClo
             <input
               type="email"
               id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-2 border border-border rounded-md bg-input text-foreground focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="you@example.com"
+              required
             />
           </div>
           <div>
@@ -45,8 +59,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onSwitchToSignup, onClo
             <input
               type="password"
               id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full p-2 border border-border rounded-md bg-input text-foreground focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="••••••••"
+              required
             />
           </div>
           <button
@@ -57,7 +74,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onSwitchToSignup, onClo
           </button>
         </form>
         <p className="text-center text-sm text-muted-foreground mt-4">
-          Don't have an account? <a href="#" onClick={onSwitchToSignup} className="text-primary hover:underline">Sign Up</a>
+          Don't have an account?{' '}
+          <a href="#" onClick={onSwitchToSignup} className="text-primary hover:underline">
+            Sign Up
+          </a>
         </p>
       </div>
     </div>

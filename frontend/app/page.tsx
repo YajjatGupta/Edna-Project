@@ -19,8 +19,9 @@ import { Header } from "@/components/header";
 export default function LandingPage() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Corrected functions to not accept any arguments
+  // --- Modal control ---
   const openSignupModal = () => {
     setIsLoginModalOpen(false);
     setIsSignupModalOpen(true);
@@ -36,12 +37,73 @@ export default function LandingPage() {
     setIsSignupModalOpen(false);
   };
 
+  // --- Signup handler with types ---
+  const handleSignup = async (email: string, password: string, confirmPassword: string) => {
+    try {
+      const res = await fetch('http://127.0.0.1:5000/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, confirm_password: confirmPassword })
+      });
+      const data = await res.json();
+      console.log(data.message);
+      if (res.status === 201) {
+        closeModal();
+      }
+    } catch (err) {
+      console.error('Signup error:', err);
+    }
+  };
+
+  // --- Login handler with types ---
+  const handleLogin = async (email: string, password: string) => {
+    try {
+      const res = await fetch('http://127.0.0.1:5000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (res.status === 200) {
+        setIsLoggedIn(true);
+        closeModal();
+        console.log("User signed in successfully!");
+      } else {
+        console.log(data.message);
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+    }
+  };
+
+  // --- Check upload page access ---
+  const checkUpload = async () => {
+    try {
+      const res = await fetch('http://127.0.0.1:5000/upload', {
+        method: 'GET',
+        credentials: 'include'
+      });
+      const data = await res.json();
+      console.log(data.message);
+    } catch (err) {
+      console.error('Upload check error:', err);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden pb-0">
       <div className="relative z-10">
-        <Header onGetStartedClick={openSignupModal} />
+        <Header 
+          onGetStartedClick={openSignupModal}
+          isLoggedIn={isLoggedIn}
+          onLoginClick={openLoginModal}
+        />
         <main className="max-w-[1320px] mx-auto relative">
-          <HeroSection onGetStarted={openSignupModal} />
+          <HeroSection 
+            onGetStarted={openSignupModal}
+            isLoggedIn={isLoggedIn}
+          />
           <div className="absolute bottom-[-150px] md:bottom-[-400px] left-1/2 transform -translate-x-1/2 z-30">
             <AnimatedSection>
               <DashboardPreview />
@@ -82,8 +144,22 @@ export default function LandingPage() {
         </AnimatedSection>
       </div>
 
-      <LoginModal isOpen={isLoginModalOpen} onSwitchToSignup={openSignupModal} onClose={closeModal} />
-      <SignupModal isOpen={isSignupModalOpen} onSwitchToLogin={openLoginModal} onClose={closeModal} />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onSwitchToSignup={openSignupModal}
+        onClose={closeModal}
+        onLogin={handleLogin}
+      />
+      <SignupModal
+        isOpen={isSignupModalOpen}
+        onSwitchToLogin={openLoginModal}
+        onClose={closeModal}
+        onSignup={handleSignup}
+      />
+
+      <button onClick={checkUpload} className="fixed bottom-4 right-4 p-2 bg-blue-500 text-white rounded">
+        Check Upload Page
+      </button>
     </div>
   );
 }

@@ -1,13 +1,25 @@
 // components/signup-modal.tsx
-import React from 'react';
+import React, { useState } from 'react';
 
 interface SignupModalProps {
   isOpen: boolean;
   onSwitchToLogin: () => void;
   onClose: () => void;
+  onSignup?: (email: string, password: string, confirmPassword: string) => void;
 }
 
-const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onSwitchToLogin, onClose }) => {
+const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onSwitchToLogin, onClose, onSignup }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onSignup) {
+      onSignup(email, password, confirmPassword); // call backend handler
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -26,7 +38,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onSwitchToLogin, onCl
           &times;
         </button>
         <h2 className="text-2xl font-semibold mb-6 text-center">Sign Up</h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium mb-1">
               Email
@@ -34,8 +46,11 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onSwitchToLogin, onCl
             <input
               type="email"
               id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-2 border border-border rounded-md bg-input text-foreground focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="you@example.com"
+              required
             />
           </div>
           <div>
@@ -45,8 +60,11 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onSwitchToLogin, onCl
             <input
               type="password"
               id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full p-2 border border-border rounded-md bg-input text-foreground focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="••••••••"
+              required
             />
           </div>
           <div>
@@ -56,8 +74,11 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onSwitchToLogin, onCl
             <input
               type="password"
               id="confirm-password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full p-2 border border-border rounded-md bg-input text-foreground focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="••••••••"
+              required
             />
           </div>
           <button
@@ -68,7 +89,10 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onSwitchToLogin, onCl
           </button>
         </form>
         <p className="text-center text-sm text-muted-foreground mt-4">
-          Already have an account? <a href="#" onClick={onSwitchToLogin} className="text-primary hover:underline">Log In</a>
+          Already have an account?{' '}
+          <a href="#" onClick={onSwitchToLogin} className="text-primary hover:underline">
+            Log In
+          </a>
         </p>
       </div>
     </div>
