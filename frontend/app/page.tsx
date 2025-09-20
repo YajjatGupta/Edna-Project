@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { HeroSection } from "@/components/hero-section";
 import { DashboardPreview } from "@/components/dashboard-preview";
 import { SocialProof } from "@/components/social-proof";
@@ -16,9 +17,8 @@ import LoginModal from "@/components/login-modal";
 import SignupModal from "@/components/signup-modal";
 import { Header } from "@/components/header";
 
-// These are the updated type definitions to resolve the TypeScript errors.
-// In your actual project, you would add the 'isLoggedIn' prop to the
-// interfaces in the header.tsx and hero-section.tsx files.
+// Note: In a real project, these interfaces would be defined within their
+// respective component files (e.g., header.tsx).
 interface HeaderProps {
   onGetStartedClick: () => void;
   isLoggedIn: boolean;
@@ -63,6 +63,7 @@ export default function LandingPage() {
       console.log(data.message);
       if (res.status === 201) {
         closeModal();
+        console.log("User signed up successfully!");
       }
     } catch (err) {
       console.error('Signup error:', err);
@@ -108,13 +109,13 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden pb-0">
       <div className="relative z-10">
-        <Header 
+        <Header
           onGetStartedClick={openSignupModal}
           isLoggedIn={isLoggedIn}
           onLoginClick={openLoginModal}
         />
         <main className="max-w-[1320px] mx-auto relative">
-          <HeroSection 
+          <HeroSection
             onGetStarted={openSignupModal}
             isLoggedIn={isLoggedIn}
           />
@@ -170,10 +171,6 @@ export default function LandingPage() {
         onClose={closeModal}
         onSignup={handleSignup}
       />
-
-      <button onClick={checkUpload} className="fixed bottom-4 right-4 p-2 bg-blue-500 text-white rounded">
-        Check Upload Page
-      </button>
     </div>
   );
 }

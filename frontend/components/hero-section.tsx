@@ -2,17 +2,16 @@
 
 import React from "react"
 import { Button } from "@/components/ui/button"
-// You should not be importing Header into HeroSection.
-// This is causing the prop-passing error. Remove this line:
-// import { Header } from "./header"
+import Link from "next/link"
+import { Upload } from "lucide-react"
 
-// Define the prop interface for the function handler
+// Corrected prop interface with `isLoggedIn`
 interface HeroSectionProps {
   onGetStarted: () => void;
+  isLoggedIn: boolean;
 }
 
-// Update the component to accept the onGetStarted prop
-export function HeroSection({ onGetStarted }: HeroSectionProps) {
+export function HeroSection({ onGetStarted, isLoggedIn }: HeroSectionProps) {
   return (
     <section
       className="flex flex-col items-center text-center relative mx-auto rounded-2xl overflow-hidden my-6 py-0 px-4
@@ -441,11 +440,6 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
         </svg>
       </div>
 
-      {/* Remove the Header component from here */}
-      {/* <div className="absolute top-0 left-0 right-0 z-20">
-        <Header />
-      </div> */}
-
       <div className="relative z-10 space-y-4 md:space-y-5 lg:space-y-6 mb-6 md:mb-7 lg:mb-9 max-w-md md:max-w-[500px] lg:max-w-[588px] mt-16 md:mt-[120px] lg:mt-[160px] px-4">
         <h1 className="text-foreground text-3xl md:text-4xl lg:text-6xl font-semibold leading-tight">
           Edna Biodiversity
@@ -455,12 +449,22 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
         </p>
       </div>
 
-      <Button
-        onClick={onGetStarted}
-        className="relative z-10 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-3 rounded-full font-medium text-base shadow-lg ring-1 ring-white/10"
-      >
-        Get Started
-      </Button>
+      {!isLoggedIn ? (
+        <Button
+          onClick={onGetStarted}
+          className="relative z-10 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-3 rounded-full font-medium text-base shadow-lg ring-1 ring-white/10"
+        >
+          Get Started
+        </Button>
+      ) : (
+        <Link href="/upload-data">
+          <Button
+            className="relative z-10 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-3 rounded-full font-medium text-base shadow-lg ring-1 ring-white/10"
+          >
+            <Upload className="mr-2 h-5 w-5" /> Upload Data
+          </Button>
+        </Link>
+      )}
     </section>
   )
 }

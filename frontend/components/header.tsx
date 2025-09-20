@@ -3,16 +3,17 @@
 import type React from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { Menu } from "lucide-react"
+import { Menu, User, Upload } from "lucide-react"
 import Link from "next/link"
 
-// Add a prop interface for the handler function
+// Corrected prop interface with `isLoggedIn` and `onLoginClick`
 interface HeaderProps {
   onGetStartedClick: () => void;
+  isLoggedIn: boolean;
+  onLoginClick: () => void;
 }
 
-// Update the component to accept the new prop
-export function Header({ onGetStartedClick }: HeaderProps) {
+export function Header({ onGetStartedClick, isLoggedIn, onLoginClick }: HeaderProps) {
   const navItems = [
     { name: "Features", href: "#features-section" },
     { name: "Pricing", href: "#pricing-section" },
@@ -49,12 +50,22 @@ export function Header({ onGetStartedClick }: HeaderProps) {
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <Button
-            onClick={onGetStartedClick}
-            className="hidden md:block bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full font-medium shadow-sm"
-          >
-            Get Started
-          </Button>
+          {/* Conditional rendering for the desktop header button */}
+          {!isLoggedIn ? (
+            <Button
+              onClick={onGetStartedClick}
+              className="hidden md:block bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full font-medium shadow-sm"
+            >
+              Get Started
+            </Button>
+          ) : (
+            <Button
+              onClick={onLoginClick}
+              className="hidden md:block p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+            >
+              <User className="h-5 w-5" />
+            </Button>
+          )}
           <Sheet>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon" className="text-foreground">
@@ -77,12 +88,23 @@ export function Header({ onGetStartedClick }: HeaderProps) {
                     {item.name}
                   </Link>
                 ))}
-                <Button
-                  onClick={onGetStartedClick}
-                  className="w-full mt-4 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full font-medium shadow-sm"
-                >
-                  Try for Free
-                </Button>
+                {/* Conditional rendering for the mobile header button */}
+                {!isLoggedIn ? (
+                  <Button
+                    onClick={onGetStartedClick}
+                    className="w-full mt-4 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full font-medium shadow-sm"
+                  >
+                    Try for Free
+                  </Button>
+                ) : (
+                  <Link href="/upload-data" className="w-full mt-4">
+                    <Button
+                      className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full font-medium shadow-sm"
+                    >
+                      <Upload className="mr-2 h-4 w-4" /> Upload Data
+                    </Button>
+                  </Link>
+                )}
               </nav>
             </SheetContent>
           </Sheet>
@@ -91,3 +113,9 @@ export function Header({ onGetStartedClick }: HeaderProps) {
     </header>
   )
 }
+
+
+
+
+
+
