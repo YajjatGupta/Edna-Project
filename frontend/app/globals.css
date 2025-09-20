@@ -5,48 +5,74 @@
 @layer base {
   :root {
     /* Set up a dark blue and black base theme */
-    --background: 220 10% 10%; /* A deep, dark gray-blue */
-    --foreground: 210 20% 98%; /* Off-white for readability */
+    --background: 0 0% 100%; /* A deep, dark gray-blue */
+    --foreground: 0 0% 3.9%; /* Off-white for readability */
 
-    --card: 220 10% 12%; /* Slightly lighter than background */
-    --card-foreground: 210 20% 98%;
+    --card: 0 0% 100%; /* Slightly lighter than background */
+    --card-foreground: 0 0% 3.9%;
 
-    --popover: 220 10% 12%;
-    --popover-foreground: 210 20% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
 
     /* Primary and Accent Colors (Blue and a complementary accent) */
-    --primary: 210 90% 60%; /* A vibrant blue for primary elements */
-    --primary-foreground: 210 20% 98%; /* Off-white for text on primary */
+    --primary: 0 0% 9%; /* A vibrant blue for primary elements */
+    --primary-foreground: 0 0% 98%; /* Off-white for text on primary */
 
-    --secondary: 220 15% 20%; /* A desaturated secondary color */
-    --secondary-foreground: 210 20% 98%;
+    --secondary: 0 0% 96.1%; /* A desaturated secondary color */
+    --secondary-foreground: 0 0% 9%;
 
-    --muted: 220 15% 15%; /* Muted backgrounds for subtle distinction */
-    --muted-foreground: 210 10% 60%; /* A light gray for muted text */
+    --muted: 0 0% 96.1%; /* Muted backgrounds for subtle distinction */
+    --muted-foreground: 0 0% 45.1%; /* A light gray for muted text */
 
-    --accent: 220 15% 20%; /* Accent backgrounds, similar to secondary */
-    --accent-foreground: 210 20% 98%;
+    --accent: 0 0% 96.1%; /* Accent backgrounds, similar to secondary */
+    --accent-foreground: 0 0% 9%;
 
     /* Border and Ring Colors */
-    --border: 220 15% 30%; /* A distinct but dark border color */
-    --input: 220 15% 20%;
-    --ring: 210 90% 60%; /* The same vibrant blue for focus rings */
+    --border: 0 0% 89.8%; /* A distinct but dark border color */
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%; /* The same vibrant blue for focus rings */
 
     /* Other Utility Colors */
     --destructive: 0 84.2% 60.2%; /* Red for errors */
-    --destructive-foreground: 210 20% 98%;
+    --destructive-foreground: 0 0% 98%;
     --radius: 0.5rem;
 
     /* Chart Colors (adjust to fit theme) */
-    --chart-1: 210 70% 50%;
-    --chart-2: 240 60% 50%;
-    --chart-3: 270 80% 55%;
-    --chart-4: 300 65% 60%;
-    --chart-5: 330 75% 55%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
   }
 
   /* The .dark block is no longer needed since the default theme is dark. */
   /* If you want to support a light theme later, you can add it back here. */
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
 }
 
 @layer base {
