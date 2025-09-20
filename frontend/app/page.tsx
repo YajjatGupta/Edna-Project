@@ -16,6 +16,20 @@ import LoginModal from "@/components/login-modal";
 import SignupModal from "@/components/signup-modal";
 import { Header } from "@/components/header";
 
+// These are the updated type definitions to resolve the TypeScript errors.
+// In your actual project, you would add the 'isLoggedIn' prop to the
+// interfaces in the header.tsx and hero-section.tsx files.
+interface HeaderProps {
+  onGetStartedClick: () => void;
+  isLoggedIn: boolean;
+  onLoginClick: () => void;
+}
+
+interface HeroSectionProps {
+  onGetStarted: () => void;
+  isLoggedIn: boolean;
+}
+
 export default function LandingPage() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);

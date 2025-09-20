@@ -4,39 +4,51 @@ import type React from "react"
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 
+// --- Data Source ---
 const faqData = [
   {
-    question: "What is Pointer and who is it for?",
+    question: "What is Edna and who is it for?",
     answer:
-      "Pointer is an AI-powered development platform designed for developers, teams, and organizations who want toaccelerate their coding workflow. It's perfect for both individual developers looking to enhance their productivity and teams seeking seamless collaboration tools.",
+      "Edna is an AI-powered platform designed to identify species and assess biodiversity from eDNA datasets. It is ideal for researchers, conservationists, educators, and environmental organizations looking to streamline biodiversity analysis.",
   },
   {
-    question: "How does Pointer's AI code review work?",
+    question: "How does Edna analyze eDNA samples?",
     answer:
-      "Our AI analyzes your code in real-time, providing intelligent suggestions for improvements, catching potential bugs, and ensuring best practices. It learns from your coding patterns and adapts to your team's standards, making code reviews faster and more consistent.",
+      "Edna uses advanced AI algorithms to classify species from environmental DNA sequences, providing accurate taxonomic identifications, diversity metrics, and interactive visualizations.",
   },
   {
-    question: "Can I integrate Pointer with my existing tools?",
+    question: "Can I integrate Edna with my existing research tools?",
     answer:
-      "Yes! Pointer offers one-click integrations with popular development tools including GitHub, GitLab, VS Code, Slack, and many more. Our MCP connectivity allows you to easily manage and configure server access across your entire development stack.",
+      "Yes! You can export results in standard formats (CSV, JSON) to integrate with other data analysis pipelines, GIS software, or reporting tools.",
   },
   {
-    question: "What's included in the free plan?",
+    question: "What data can I upload?",
     answer:
-      "The free plan includes real-time code suggestions, basic integrations, single MCP server connection, up to 2 AI coding agents, and Vercel deployments with Pointer branding. It's perfect for individual developers getting started.",
+      "Edna supports eDNA datasets in CSV or FASTA format. You can upload samples from soil, water, or other environmental sources for analysis.",
   },
   {
-    question: "How do parallel coding agents work?",
+    question: "Is my data secure with Edna?",
     answer:
-      "Our parallel coding agents can work on different parts of your codebase simultaneously, solving complex problems faster than traditional single-threaded approaches. You can launch multiple agents to handle different tasks like bug fixes, feature development, and code optimization concurrently.",
+      "Absolutely. All uploaded data is encrypted and stored securely. Users have full control over who can access their datasets and results.",
   },
   {
-    question: "Is my code secure with Pointer?",
+    question: "What plans are available?",
     answer:
-      "Absolutely. We use enterprise-grade security measures including end-to-end encryption, secure data transmission, and compliance with industry standards. Your code never leaves your secure environment without your explicit permission, and we offer on-premises deployment options for enterprise customers.",
+      "Free: Limited uploads and basic visualization. Pro: Advanced analysis, larger datasets, and customizable dashboards. Enterprise: Tailored solutions, unlimited data, and dedicated support.",
   },
-]
+  {
+    question: "Can I visualize biodiversity changes over time?",
+    answer:
+      "Yes! Edna provides interactive charts, heatmaps, and time-series visualizations to track changes in species diversity across regions or time periods.",
+  },
+  {
+    question: "How do I get started?",
+    answer:
+      "Simply sign up, upload your eDNA dataset, and explore the results in your personalized dashboard.",
+  },
+];
 
+// --- Component Props Interface ---
 interface FAQItemProps {
   question: string
   answer: string
@@ -44,11 +56,13 @@ interface FAQItemProps {
   onToggle: () => void
 }
 
+// --- Individual FAQ Item Component ---
 const FAQItem = ({ question, answer, isOpen, onToggle }: FAQItemProps) => {
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     onToggle()
   }
+
   return (
     <div
       className={`w-full bg-[rgba(231,236,235,0.08)] shadow-[0px_2px_4px_rgba(0,0,0,0.16)] overflow-hidden rounded-[10px] outline outline-1 outline-border outline-offset-[-1px] transition-all duration-500 ease-out cursor-pointer`}
@@ -79,8 +93,10 @@ const FAQItem = ({ question, answer, isOpen, onToggle }: FAQItemProps) => {
   )
 }
 
+// --- Main FAQ Section Component ---
 export function FAQSection() {
   const [openItems, setOpenItems] = useState<Set<number>>(new Set())
+
   const toggleItem = (index: number) => {
     const newOpenItems = new Set(openItems)
     if (newOpenItems.has(index)) {
@@ -90,6 +106,7 @@ export function FAQSection() {
     }
     setOpenItems(newOpenItems)
   }
+
   return (
     <section className="w-full pt-[66px] pb-20 md:pb-40 px-5 relative flex flex-col justify-center items-center">
       <div className="w-[300px] h-[500px] absolute top-[150px] left-1/2 -translate-x-1/2 origin-top-left rotate-[-33.39deg] bg-primary/10 blur-[100px] z-0" />
@@ -99,7 +116,7 @@ export function FAQSection() {
             Frequently Asked Questions
           </h2>
           <p className="self-stretch text-center text-muted-foreground text-sm font-medium leading-[18.20px] break-words">
-            Everything you need to know about Pointer and how it can transform your development workflow
+            Everything you need to know about Edna and how it can transform biodiversity research using AI.
           </p>
         </div>
       </div>
