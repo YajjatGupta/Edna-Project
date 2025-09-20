@@ -1,88 +1,47 @@
 "use client"
 
-import { Twitter, Github, Linkedin } from "lucide-react"
-
 export function FooterSection() {
   return (
-    <footer className="w-full max-w-[1320px] mx-auto px-5 flex flex-col md:flex-row justify-between items-start gap-8 md:gap-0 py-10 md:py-[70px]">
-      {/* Left Section: Logo, Description, Social Links */}
-      <div className="flex flex-col justify-start items-start gap-8 p-4 md:p-8">
-        <div className="flex gap-3 items-stretch justify-center">
-          <div className="text-center text-foreground text-xl font-semibold leading-4">Pointer</div>
+    <footer className="w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-neutral-100">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 p-4">
+        {/* Name Section */}
+        <div className="flex flex-col gap-2">
+          <h3 className="text-black text-xl font-semibold">Name</h3>
+          <p className="text-black/80 text-sm font-normal">Identifying Taxonomy and Assessing Biodiversity from eDNA Datasets</p>
         </div>
-        <p className="text-foreground/90 text-sm font-medium leading-[18px] text-left">Coding made effortless</p>
-        <div className="flex justify-start items-start gap-3">
-          <a href="#" aria-label="Twitter" className="w-4 h-4 flex items-center justify-center">
-            <Twitter className="w-full h-full text-muted-foreground" />
-          </a>
-          <a href="#" aria-label="GitHub" className="w-4 h-4 flex items-center justify-center">
-            <Github className="w-full h-full text-muted-foreground" />
-          </a>
-          <a href="#" aria-label="LinkedIn" className="w-4 h-4 flex items-center justify-center">
-            <Linkedin className="w-full h-full text-muted-foreground" />
-          </a>
-        </div>
-      </div>
-      {/* Right Section: Product, Company, Resources */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 p-4 md:p-8 w-full md:w-auto">
-        <div className="flex flex-col justify-start items-start gap-3">
-          <h3 className="text-muted-foreground text-sm font-medium leading-5">Product</h3>
-          <div className="flex flex-col justify-end items-start gap-2">
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Features
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Pricing
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Integrations
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Real-time Previews
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Multi-Agent Coding
-            </a>
+
+        {/* Quick Links Section */}
+        <div className="flex flex-col gap-3">
+          <h3 className="text-black text-xl font-semibold">Quick Links</h3>
+          <div className="flex flex-col gap-2">
+            <a href="#" className="text-black/80 text-sm font-normal hover:underline">Upload</a>
+            <a href="#" className="text-black/80 text-sm font-normal hover:underline">Biodiversity Insights</a>
+            <a href="#" className="text-black/80 text-sm font-normal hover:underline">Taxonomy Result</a>
+            <a href="#" className="text-black/80 text-sm font-normal hover:underline">Export</a>
           </div>
         </div>
-        <div className="flex flex-col justify-start items-start gap-3">
-          <h3 className="text-muted-foreground text-sm font-medium leading-5">Company</h3>
-          <div className="flex flex-col justify-center items-start gap-2">
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              About us
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Our team
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Careers
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Brand
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Contact
-            </a>
+
+        {/* Contact Us Section */}
+        <div className="flex flex-col gap-3">
+          <h3 className="text-black text-xl font-semibold">Contact Us</h3>
+          <div className="flex flex-col gap-2">
+            <p className="text-black/80 text-sm font-normal">+91 9120731190</p>
+            <p className="text-black/80 text-sm font-normal">support@gmail.com</p>
+            <p className="text-black/80 text-sm font-normal">Greater Noida</p>
           </div>
         </div>
-        <div className="flex flex-col justify-start items-start gap-3">
-          <h3 className="text-muted-foreground text-sm font-medium leading-5">Resources</h3>
-          <div className="flex flex-col justify-center items-start gap-2">
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Terms of use
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              API Reference
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Documentation
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Community
-            </a>
-            <a href="#" className="text-foreground text-sm font-normal leading-5 hover:underline">
-              Support
-            </a>
+
+        {/* Newsletter Section */}
+        <div className="flex flex-col gap-3">
+          <h3 className="text-black text-xl font-semibold">NewsLetter</h3>
+          <p className="text-black/80 text-sm font-normal">Subscribe to our NewsLetter</p>
+          <div className="flex flex-col gap-2 mt-2">
+            <input 
+              type="email" 
+              placeholder="Enter your Email" 
+              className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-300 bg-gray-200 text-gray-800"
+            />
+            <button className="bg-black text-white px-4 py-2 rounded-md font-medium transition-transform transform hover:scale-105">Subscribe</button>
           </div>
         </div>
       </div>

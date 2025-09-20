@@ -9,25 +9,25 @@ const faqData = [
   {
     question: "What is Edna and who is it for?",
     answer:
-      "Edna is an AI-powered platform designed to identify species and assess biodiversity from eDNA datasets. It is ideal for researchers, conservationists, educators, and environmental organizations looking to streamline biodiversity analysis.",
+      "eDNA is an AI-powered platform designed to identify species and assess biodiversity from eDNA datasets. It is ideal for researchers, conservationists, educators, and environmental organizations looking to streamline biodiversity analysis.",
   },
   {
-    question: "How does Edna analyze eDNA samples?",
+    question: "How does eDNA analyze eDNA samples?",
     answer:
-      "Edna uses advanced AI algorithms to classify species from environmental DNA sequences, providing accurate taxonomic identifications, diversity metrics, and interactive visualizations.",
+      "eDNA uses advanced AI algorithms to classify species from environmental DNA sequences, providing accurate taxonomic identifications, diversity metrics, and interactive visualizations.",
   },
   {
-    question: "Can I integrate Edna with my existing research tools?",
+    question: "Can I integrate eDNA with my existing research tools?",
     answer:
       "Yes! You can export results in standard formats (CSV, JSON) to integrate with other data analysis pipelines, GIS software, or reporting tools.",
   },
   {
     question: "What data can I upload?",
     answer:
-      "Edna supports eDNA datasets in CSV or FASTA format. You can upload samples from soil, water, or other environmental sources for analysis.",
+      "eDNA supports eDNA datasets in CSV or FASTA format. You can upload samples from soil, water, or other environmental sources for analysis.",
   },
   {
-    question: "Is my data secure with Edna?",
+    question: "Is my data secure with eDNA?",
     answer:
       "Absolutely. All uploaded data is encrypted and stored securely. Users have full control over who can access their datasets and results.",
   },
@@ -39,7 +39,7 @@ const faqData = [
   {
     question: "Can I visualize biodiversity changes over time?",
     answer:
-      "Yes! Edna provides interactive charts, heatmaps, and time-series visualizations to track changes in species diversity across regions or time periods.",
+      "Yes! eDNA provides interactive charts, heatmaps, and time-series visualizations to track changes in species diversity across regions or time periods.",
   },
   {
     question: "How do I get started?",
@@ -116,7 +116,7 @@ export function FAQSection() {
             Frequently Asked Questions
           </h2>
           <p className="self-stretch text-center text-muted-foreground text-sm font-medium leading-[18.20px] break-words">
-            Everything you need to know about Edna and how it can transform biodiversity research using AI.
+            Everything you need to know about eDNA and how it can transform biodiversity research using AI.
           </p>
         </div>
       </div>

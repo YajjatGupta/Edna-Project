@@ -6,7 +6,7 @@ import type { HTMLMotionProps } from "framer-motion"
 
 // Change the interface to extend HTMLMotionProps instead of HTMLAttributes.
 // This is the correct way to define types for a motion component.
-// We also Omit the `transition` and `className` props since we're handling them explicitly.
+// We also Omit the transition and className props since we're handling them explicitly.
 interface AnimatedSectionProps
   extends Omit<HTMLMotionProps<"div">, "transition" | "className"> {
   children: ReactNode

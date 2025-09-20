@@ -3,63 +3,70 @@ import Image from "next/image"
 const testimonials = [
   {
     quote:
-      "The real-time code suggestions from Pointer feel like having a senior engineer reviewing every line of code as you write. The accuracy of its recommendations has improved our overall code quality, reduced review time.",
+      "The real-time species tracking from eDNA Biodiversity feels like having an expert ecologist in the field with us. Its accuracy has improved our data quality and sped up our research.",
     name: "Annette Black",
-    company: "Sony",
+    company: "Wildlife Research Institute",
     avatar: "/images/avatars/annette-black.png",
     type: "large-teal",
   },
   {
     quote:
-      "Integrating Pointer into our stack was smooth, and the MCP server connections saved us days of configuration work",
+      "Integrating eDNA Biodiversity into our ecosystem monitoring was smooth, and its data visualization tools saved us weeks of manual analysis.",
     name: "Dianne Russell",
-    company: "McDonald's",
+    company: "National Parks Service",
     avatar: "/images/avatars/dianne-russell.png",
     type: "small-dark",
   },
   {
     quote:
-      "Pointer’s multi-agent coding feature has been a game changer. We’re fixing complex bugs in hours instead of spending entire sprints on them.",
+      "eDNA multi-species analysis feature has been a game changer. We’re identifying ecological patterns in hours instead of spending entire months on surveys.",
     name: "Cameron Williamson",
-    company: "IBM",
+    company: "Global Biodiversity Network",
     avatar: "/images/avatars/cameron-williamson.png",
     type: "small-dark",
   },
   {
     quote:
-      "We no longer juggle multiple tools. Pointer brought all our integrations together in one place, which simplified our entire workflow.",
+      "We no longer juggle multiple data sources. eDNA brought all our biodiversity records together in one place, which simplified our workflow and reporting.",
     name: "Robert Fox",
-    company: "MasterCard",
+    company: "EcoAnalytics",
     avatar: "/images/avatars/robert-fox.png",
     type: "small-dark",
   },
   {
     quote:
-      "We started with the free plan just to test it out, but within a week we upgraded to Pro. Now, we can’t imagine coding without it",
+      "We started with the free plan to explore its features, but within a week we upgraded. Now, we can’t imagine doing field research without Edna Biodiversity.",
     name: "Darlene Robertson",
-    company: "Ferrari",
+    company: "Green Planet Foundation",
     avatar: "/images/avatars/darlene-robertson.png",
     type: "small-dark",
   },
   {
     quote:
-      "Collaborative coding feels effortless now. With Pointer’s real-time previews, pair programming has become faster and more productive.",
+      "Collaborative research feels effortless now. With eDNA’s real-time data sharing, our team can coordinate surveys faster and more efficiently.",
     name: "Cody Fisher",
-    company: "Apple",
+    company: "Nature Conservancy",
     avatar: "/images/avatars/cody-fisher.png",
     type: "small-dark",
   },
   {
     quote:
-      "Deploying on Vercel with Pointer was not just simple, it felt seamless. We went from coding to seeing our changes live in minutes without worrying about build pipelines or configuration issues.",
+      "Deploying our biodiversity projects with eDNA was seamless. We can go from data collection to analysis in minutes without worrying about technical issues.",
     name: "Albert Flores",
-    company: "Louis Vuitton",
+    company: "EcoWorld Labs",
     avatar: "/images/avatars/albert-flores.png",
     type: "large-light",
   },
-]
+];
+interface TestimonialCardProps {
+  quote: string
+  name: string
+  company: string
+  avatar: string
+  type: string // Or 'small' | 'large' if you want stricter typing
+}
 
-const TestimonialCard = ({ quote, name, company, avatar, type }) => {
+const TestimonialCard = ({ quote, name, company, avatar, type }: TestimonialCardProps) => {
   const isLargeCard = type.startsWith("large")
   const avatarSize = isLargeCard ? 48 : 36
   const avatarBorderRadius = isLargeCard ? "rounded-[41px]" : "rounded-[30.75px]"
