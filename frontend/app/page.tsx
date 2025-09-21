@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { HeroSection } from "@/components/hero-section";
 import { DashboardPreview } from "@/components/dashboard-preview";
@@ -13,15 +13,21 @@ import { FooterSection } from "@/components/footer-section";
 import { AnimatedSection } from "@/components/animated-section";
 import LoginModal from "@/components/login-modal";
 import SignupModal from "@/components/signup-modal";
-
-// ✅ Import your own Header component
-import Header  from "@/components/header";
+import Header from "@/components/header";
 
 export default function LandingPage() {
   const router = useRouter();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // ✅ Load login state from localStorage
+  useEffect(() => {
+    const storedLogin = localStorage.getItem("isLoggedIn");
+    if (storedLogin === "true") {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   // --- Modal control ---
   const openSignupModal = () => {
@@ -53,6 +59,8 @@ export default function LandingPage() {
       });
       const data = await res.json();
       if (res.status === 201) {
+        setIsLoggedIn(true);
+        localStorage.setItem("isLoggedIn", "true"); // ✅ persist
         closeModal();
         console.log("User signed up successfully!");
       } else {
@@ -75,6 +83,7 @@ export default function LandingPage() {
       const data = await res.json();
       if (res.status === 200) {
         setIsLoggedIn(true);
+        localStorage.setItem("isLoggedIn", "true"); // ✅ persist
         closeModal();
         console.log("User signed in successfully!");
       } else {
@@ -85,7 +94,14 @@ export default function LandingPage() {
     }
   };
 
-  // --- Handler for button clicks after login ---
+  // --- Logout handler (optional) ---
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("isLoggedIn"); // ✅ clear persistence
+    console.log("User logged out");
+  };
+
+  // --- Handler for button clicks after login/signup ---
   const handleUploadDataClick = () => {
     router.push("/upload-data");
   };
@@ -111,43 +127,22 @@ export default function LandingPage() {
             </AnimatedSection>
           </div>
         </main>
-        <AnimatedSection
-          id="features-section"
-          className="relative z-10 max-w-[1320px] mx-auto mt-16"
-          delay={0.2}
-        >
+        <AnimatedSection id="features-section" className="relative z-10 max-w-[1320px] mx-auto mt-16" delay={0.2}>
           <BentoSection />
         </AnimatedSection>
-        <AnimatedSection
-          className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16"
-          delay={0.2}
-        >
+        <AnimatedSection className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16" delay={0.2}>
           <LargeTestimonial />
         </AnimatedSection>
-        <AnimatedSection
-          id="testimonials-section"
-          className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16"
-          delay={0.2}
-        >
+        <AnimatedSection id="testimonials-section" className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16" delay={0.2}>
           <TestimonialGridSection />
         </AnimatedSection>
-        <AnimatedSection
-          id="faq-section"
-          className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16"
-          delay={0.2}
-        >
+        <AnimatedSection id="faq-section" className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16" delay={0.2}>
           <FAQSection />
         </AnimatedSection>
-        <AnimatedSection
-          className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16"
-          delay={0.2}
-        >
+        <AnimatedSection className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16" delay={0.2}>
           <CTASection />
         </AnimatedSection>
-        <AnimatedSection
-          className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16"
-          delay={0.2}
-        >
+        <AnimatedSection className="relative z-10 max-w-[1320px] mx-auto mt-8 md:mt-16" delay={0.2}>
           <FooterSection />
         </AnimatedSection>
       </div>
