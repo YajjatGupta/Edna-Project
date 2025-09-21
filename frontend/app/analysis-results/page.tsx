@@ -7,13 +7,39 @@ import { Menu, User } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/footer-section"; // adjust the path if needed
 
-// Sample dropdown options and corresponding answers
-const options = ["Option 1", "Option 2", "Option 3"];
-const answers: Record<string, string> = {
-  "Option 1": "Answer for Option 1",
-  "Option 2": "Answer for Option 2",
-  "Option 3": "Answer for Option 3",
+// Raw data provided by the user, enclosed in a template literal (backticks)
+const rawData = `Sequence ID,Predicted Species,Confidence,Kingdom,Phylum,Class,Order,Family,Genus,Species
+1,Chilodonella uncinata,28.63%,Chromista,Ciliophora,Phyllopharyngea,Chlamydodontida,Chilodonellidae,Chilodonella,Chilodonella uncinata
+2,Parvochelus russus,92.84%,Animalia,Arthropoda,Malacostraca,Decapoda,Diogenidae,Parvochelus,Parvochelus russus
+3,Encephalitozoon intestinalis,5.57%,Fungi,Microsporidia,Microsporidea,Encephalitozoana,Encephalitozoonidae,Encephalitozoon,Encephalitozoon intestinalis
+4,Caecitellus parvulus,21.54%,Animalia,Arthropoda,Arachnida,Sarcoptiformes,Endeostigmidae,Caecitellus,Caecitellus parvulus
+5,Dasytricha ruminantium,23.83%,Protozoa,Ciliophora,Oligohymenophorea,Entodiniomorphida,Ophryoscolecidae,Dasytricha,Dasytricha ruminantium
+6,Dasytricha ruminantium,18.06%,Protozoa,Ciliophora,Oligohymenophorea,Entodiniomorphida,Ophryoscolecidae,Dasytricha,Dasytricha ruminantium
+7,Dasytricha ruminantium,9.39%,Protista,Ciliophora,Oligohymenophorea,Entodiniomorphida,Ophryoscolecidae,Dasytricha,Dasytricha ruminantium
+8,Diutina catenulata,28.47%,Fungi,Ascomycota,Saccharomycetes,Saccharomycetales,Saccharomycetaceae,Diutina,Diutina catenulata
+9,Dasytricha ruminantium,11.21%,Protozoa,Ciliophora,Litostomatea,Plagiopylida,Dasytrichidae,Dasytricha,Dasytricha ruminantium
+10,Strigamia maritima,1.08%,Animalia,Arthropoda,Chilopoda,Geophilomorpha,Linotaeniidae,Strigamia,Strigamia maritima`;
+
+// Function to parse the CSV string into an array of objects
+const parseCSV = (csvString: string) => {
+  const lines = csvString.trim().split('\n');
+  const headers = lines[0].split(',');
+  const data = lines.slice(1).map(line => {
+    const values = line.split(',');
+    return headers.reduce((obj, header, index) => {
+      // Clean up headers and values
+      const cleanHeader = header.trim();
+      const value = values[index].trim();
+      // Adjust "Confidence" to be a number
+      obj[cleanHeader] = cleanHeader === 'Confidence' ? parseFloat(value) : value;
+      return obj;
+    }, {} as Record<string, any>);
+  });
+  return data;
 };
+
+// Parse the raw data into a usable array of objects
+const speciesData = parseCSV(rawData);
 
 // Header Component
 function Header() {
@@ -112,7 +138,16 @@ const LocalFooter = () => (
 
 // Main Page Component
 export default function AnalysisResultsPage() {
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [selectedSpecies, setSelectedSpecies] = useState<any>(null);
+
+  // Get a unique list of species for the dropdown
+  const uniqueSpecies = Array.from(new Set(speciesData.map(item => item["Predicted Species"])));
+
+  const handleSpeciesChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedName = event.target.value;
+    const species = speciesData.find(item => item["Predicted Species"] === selectedName);
+    setSelectedSpecies(species || null);
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -129,22 +164,35 @@ export default function AnalysisResultsPage() {
             <p className="text-muted-foreground text-sm mb-4">Select an option to see the corresponding analysis</p>
             <select
               className="w-full border border-border rounded-md p-2 text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-              value={selectedOption}
-              onChange={(e) => setSelectedOption(e.target.value)}
+              value={selectedSpecies ? selectedSpecies["Predicted Species"] : ""}
+              onChange={handleSpeciesChange}
             >
               <option value="">-- Select --</option>
-              {options.map((opt, idx) => (
-                <option key={idx} value={opt}>{opt}</option>
+              {uniqueSpecies.map((speciesName, idx) => (
+                <option key={idx} value={speciesName}>{speciesName}</option>
               ))}
             </select>
           </div>
 
-          {/* Answer Box */}
+          {/* Taxonomic Tree Box */}
           <div className="flex-1 bg-card p-6 rounded-lg shadow-md min-h-[350px] hover:scale-105 transform transition-transform duration-300">
             <h2 className="text-lg font-semibold mb-4">Taxonomic Tree</h2>
-            <p className="text-muted-foreground text-sm">
-              {selectedOption ? answers[selectedOption] : "NA"}
-            </p>
+            <div className="text-muted-foreground text-sm space-y-2">
+              {selectedSpecies ? (
+                <>
+                  <p><strong>Confidence:</strong> {selectedSpecies.Confidence}%</p>
+                  <p><strong>Kingdom:</strong> {selectedSpecies.Kingdom}</p>
+                  <p><strong>Phylum:</strong> {selectedSpecies.Phylum}</p>
+                  <p><strong>Class:</strong> {selectedSpecies.Class}</p>
+                  <p><strong>Order:</strong> {selectedSpecies.Order}</p>
+                  <p><strong>Family:</strong> {selectedSpecies.Family}</p>
+                  <p><strong>Genus:</strong> {selectedSpecies.Genus}</p>
+                  <p><strong>Species:</strong> {selectedSpecies.Species}</p>
+                </>
+              ) : (
+                <p>NA</p>
+              )}
+            </div>
           </div>
         </div>
 
