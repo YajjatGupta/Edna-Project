@@ -149,22 +149,22 @@ export default function AnalysisResultsPage() {
         </div>
 
         {/* 5 Larger Boxes */}
-<div className="flex flex-wrap gap-6 max-w-[1320px] mx-auto justify-center">
-  {[...Array(5)].map((_, i) => (
-    <div
-      key={i}
-      className={`relative bg-card p-6 rounded-lg shadow-md min-h-[210px] flex items-center justify-center transform transition-transform duration-300 cursor-pointer hover:scale-105`}
-      style={
-        i === 4
-          ? { marginLeft: "auto", marginRight: "auto", width: "48%", transformOrigin: "center" }
-          : { width: "48%", transformOrigin: "center" }
-      }
-    >
-      {i < 4 && <span className="absolute text-4xl font-bold text-muted-foreground">+</span>}
-      <p className="text-center text-sm">{`Box ${i + 1}`}</p>
-    </div>
-  ))}
-</div>
+        <div className="flex flex-wrap gap-6 max-w-[1320px] mx-auto justify-center">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="relative bg-card p-6 rounded-lg shadow-md min-h-[210px] flex items-center justify-center transform transition-transform duration-300 cursor-pointer hover:scale-105"
+              style={
+                i === 4
+                  ? { marginLeft: "auto", marginRight: "auto", width: "48%", transformOrigin: "center", minHeight: "210px" }
+                  : { width: "48%", transformOrigin: "center", minHeight: "210px" }
+              }
+            >
+              {i < 4 && <span className="absolute text-4xl font-bold text-muted-foreground">+</span>}
+              <p className="text-center text-sm">{`Box ${i + 1}`}</p>
+            </div>
+          ))}
+        </div>
 
         {/* 10 Scrollable Boxes */}
         <div className="overflow-x-auto max-w-[1320px] mx-auto">
@@ -179,7 +179,6 @@ export default function AnalysisResultsPage() {
             ))}
           </div>
         </div>
-
       </main>
 
       {/* Footer */}
