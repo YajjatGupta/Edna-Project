@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, User } from "lucide-react";
 import Link from "next/link";
-import Footer from "@/components/footer-section"; // adjust the path if needed
 
 // Raw data provided by the user, enclosed in a template literal (backticks)
 const rawData = `Sequence ID,Predicted Species,Confidence,Kingdom,Phylum,Class,Order,Family,Genus,Species

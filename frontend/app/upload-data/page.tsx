@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Upload, Sun, User } from "lucide-react";
+import { Menu, Upload, User } from "lucide-react";
 
 // Header Component from the Exports Page
 function Header() {
@@ -32,9 +32,6 @@ function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          {/* <Button className="p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 hidden md:block">
-            <Sun className="h-5 w-5" />
-          </Button> */}
           <Button className="p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 hidden md:block">
             <User className="h-5 w-5" />
           </Button>
@@ -69,7 +66,7 @@ function Header() {
 
 // Footer Component
 const LocalFooter = () => (
-  <footer className="w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-background transition-opacity duration-500">
+  <footer className="w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-background">
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 p-4">
       <div className="flex flex-col gap-2">
         <h3 className="text-foreground text-xl font-semibold">eDNA</h3>
@@ -132,23 +129,7 @@ const MessageModal = ({ message, onClose }: MessageModalProps) => (
 export default function UploadPage() {
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [showFooter, setShowFooter] = useState(false);
   const [messageModal, setMessageModal] = useState({ visible: false, message: "" });
-
-  // Scroll handler to show footer only at bottom
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const fullHeight = document.body.offsetHeight;
-
-      if (scrollTop + windowHeight >= fullHeight - 50) setShowFooter(true);
-      else setShowFooter(false);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Drag-and-drop handlers
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => { e.preventDefault(); e.stopPropagation(); };
@@ -226,10 +207,8 @@ export default function UploadPage() {
         </div>
       </main>
 
-      {/* Footer appears only when scrolled to bottom */}
-      <div className={`${showFooter ? "opacity-100" : "opacity-0 pointer-events-none"} transition-opacity duration-500`}>
-        <LocalFooter />
-      </div>
+      {/* Footer */}
+      <LocalFooter />
 
       {/* Message Modal */}
       {messageModal.visible && (
