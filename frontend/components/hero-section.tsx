@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Upload } from "lucide-react"
 
-// Corrected prop interface with `isLoggedIn`
 interface HeroSectionProps {
   onGetStarted: () => void;
   isLoggedIn: boolean;
+  onUploadClick: () => void;
 }
 
 export function HeroSection({ onGetStarted, isLoggedIn }: HeroSectionProps) {
@@ -40,7 +40,6 @@ export function HeroSection({ onGetStarted, isLoggedIn }: HeroSectionProps) {
               <rect x="10" y="-0.84668" width="1200" height="811.693" fill="url(#paint0_linear_186_1134)" />
             </mask>
             <g mask="url(#mask0_186_1134)">
-              {/* Grid Rectangles */}
               {[...Array(35)].map((_, i) => (
                 <React.Fragment key={`row1-${i}`}>
                   <rect
@@ -265,7 +264,6 @@ export function HeroSection({ onGetStarted, isLoggedIn }: HeroSectionProps) {
                   />
                 </React.Fragment>
               ))}
-              {/* Specific Rectangles with fill */}
               <rect x="699.711" y="81" width="36" height="36" fill="hsl(var(--foreground))" fillOpacity="0.08" />
               <rect x="195.711" y="153" width="36" height="36" fill="hsl(var(--foreground))" fillOpacity="0.09" />
               <rect x="1023.71" y="153" width="36" height="36" fill="hsl(var(--foreground))" fillOpacity="0.09" />

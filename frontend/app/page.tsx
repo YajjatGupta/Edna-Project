@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { HeroSection } from "@/components/hero-section";
 import { DashboardPreview } from "@/components/dashboard-preview";
 import { SocialProof } from "@/components/social-proof";
@@ -62,7 +62,7 @@ export default function LandingPage() {
     }
   };
 
-  // --- Login handler ---
+  // --- Login handler (redirect removed) ---
   const handleLogin = async (email: string, password: string) => {
     try {
       const res = await fetch("http://127.0.0.1:5000/login", {
@@ -76,13 +76,18 @@ export default function LandingPage() {
         setIsLoggedIn(true);
         closeModal();
         console.log("User signed in successfully!");
-        router.push("/upload-data"); // Redirect after login
+        // REMOVED: router.push("/upload-data");
       } else {
         console.log(data.message);
       }
     } catch (err) {
       console.error("Login error:", err);
     }
+  };
+  
+  // --- Handler for button clicks after login ---
+  const handleUploadDataClick = () => {
+    router.push("/upload-data");
   };
 
   return (
@@ -92,9 +97,14 @@ export default function LandingPage() {
           onGetStartedClick={openSignupModal}
           isLoggedIn={isLoggedIn}
           onLoginClick={openLoginModal}
+          onUploadClick={handleUploadDataClick}
         />
         <main className="max-w-[1320px] mx-auto relative">
-          <HeroSection onGetStarted={openSignupModal} isLoggedIn={isLoggedIn} />
+          <HeroSection 
+            onGetStarted={openSignupModal} 
+            isLoggedIn={isLoggedIn}
+            onUploadClick={handleUploadDataClick} // Pass the new handler
+          />
           <div className="absolute bottom-[-150px] md:bottom-[-400px] left-1/2 transform -translate-x-1/2 z-30">
             <AnimatedSection>
               <DashboardPreview />

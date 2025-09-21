@@ -11,9 +11,10 @@ interface HeaderProps {
   onGetStartedClick: () => void;
   isLoggedIn: boolean;
   onLoginClick: () => void;
+  onUploadClick: () => void; // <-- Add this new prop
 }
 
-export function Header({ onGetStartedClick, isLoggedIn, onLoginClick }: HeaderProps) {
+export function Header({ onGetStartedClick, isLoggedIn, onLoginClick, onUploadClick }: HeaderProps) {
   const navItems = [
     { name: "Features", href: "#features-section" },
     { name: "Pricing", href: "#pricing-section" },
@@ -60,10 +61,10 @@ export function Header({ onGetStartedClick, isLoggedIn, onLoginClick }: HeaderPr
             </Button>
           ) : (
             <Button
-              onClick={onLoginClick}
-              className="hidden md:block p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+              onClick={onUploadClick} // <-- Use the new prop here
+              className="hidden md:block bg-secondary text-secondary-foreground hover:bg-secondary/120 px-6 py-2 rounded-full font-medium shadow-sm"
             >
-              <User className="h-5 w-5" />
+              <Upload className="mr-2 h-5 w-5" /> Upload Data
             </Button>
           )}
           <Sheet>
@@ -97,13 +98,12 @@ export function Header({ onGetStartedClick, isLoggedIn, onLoginClick }: HeaderPr
                     Try for Free
                   </Button>
                 ) : (
-                  <Link href="/upload-data" className="w-full mt-4">
-                    <Button
-                      className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full font-medium shadow-sm"
-                    >
-                      <Upload className="mr-2 h-4 w-4" /> Upload Data
-                    </Button>
-                  </Link>
+                  <Button
+                    onClick={onUploadClick} // <-- Use the new prop here
+                    className="w-full mt-4 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full font-medium shadow-sm"
+                  >
+                    <Upload className="mr-2 h-4 w-4" /> Upload Data
+                  </Button>
                 )}
               </nav>
             </SheetContent>
@@ -113,9 +113,3 @@ export function Header({ onGetStartedClick, isLoggedIn, onLoginClick }: HeaderPr
     </header>
   )
 }
-
-
-
-
-
-

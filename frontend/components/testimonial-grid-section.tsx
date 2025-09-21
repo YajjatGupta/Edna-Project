@@ -65,13 +65,16 @@ interface TestimonialCardProps {
   avatar: string
   type: string // Or 'small' | 'large' if you want stricter typing
 }
+// Corrected TestimonialCard component
 const TestimonialCard = ({ quote, name, company, avatar, type }: TestimonialCardProps) => {
   const isLargeCard = type.startsWith("large")
   const avatarSize = isLargeCard ? 48 : 36
   const avatarBorderRadius = isLargeCard ? "rounded-[41px]" : "rounded-[30.75px]"
   const padding = isLargeCard ? "p-6" : "p-[30px]"
 
-  let cardClasses = flex flex-col justify-between items-start overflow-hidden rounded-[10px] shadow-[0px_2px_4px_rgba(0,0,0,0.08)] relative ${padding}
+  // Correctly define base classes as a string
+  const baseCardClasses = `flex flex-col justify-between items-start overflow-hidden rounded-[10px] shadow-[0px_2px_4px_rgba(0,0,0,0.08)] relative ${padding}`
+  let cardClasses = baseCardClasses
   let quoteClasses = ""
   let nameClasses = ""
   let companyClasses = ""
@@ -112,16 +115,16 @@ const TestimonialCard = ({ quote, name, company, avatar, type }: TestimonialCard
   }
 
   return (
-    <div className={${cardClasses} ${cardWidth} ${cardHeight}}>
+    <div className={`${cardClasses} ${cardWidth} ${cardHeight}`}>
       {backgroundElements}
-      <div className={relative z-10 font-normal break-words ${quoteClasses}}>{quote}</div>
+      <div className={`relative z-10 font-normal break-words ${quoteClasses}`}>{quote}</div>
       <div className="relative z-10 flex justify-start items-center gap-3">
         <Image
           src={avatar || "/placeholder.svg"}
-          alt={${name} avatar}
+          alt={`${name} avatar`} // Correctly use template literal
           width={avatarSize}
           height={avatarSize}
-          className={w-${avatarSize / 4} h-${avatarSize / 4} ${avatarBorderRadius}}
+          className={`w-[${avatarSize}px] h-[${avatarSize}px] ${avatarBorderRadius}`} // Correctly use template literal for size
           style={{ border: "1px solid rgba(255, 255, 255, 0.08)" }}
         />
         <div className="flex flex-col justify-start items-start gap-0.5">
