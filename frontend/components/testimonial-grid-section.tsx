@@ -18,15 +18,15 @@ const testimonials = [
     type: "large-light",
   },
   {
-    quote: "Aeshni designs intuitive UI/UX and contributes to frontend development, ensuring smooth interaction between design and functionality.",
-    name: "Aeshni Yadav",
+    quote: "Vaishnavi designs intuitive UI/UX and contributes to frontend development, ensuring smooth interaction between design and functionality.",
+    name: "Vaishnavi Srivastava",
     company: "UI/UX & Frontend Developer",
     avatar: "/images/avatars/cody-fisher.png",
     type: "small-dark",
   },
   {
-    quote: "Vaishnavi handles backend development and database management, supporting data analysis and ensuring structured data handling.",
-    name: "Vaishnavi Srivastava",
+    quote: "Aeshni handles backend development and database management, supporting data analysis and ensuring structured data handling.",
+    name: "Aeshni Yadav",
     company: "Backend & Database",
     avatar: "/images/avatars/robert-fox.png",
     type: "small-dark",
@@ -136,11 +136,11 @@ export function TestimonialGridSection() {
       <div className="self-stretch py-6 md:py-8 lg:py-14 flex flex-col justify-center items-center gap-2">
         <div className="flex flex-col justify-start items-center gap-4">
           <h2 className="text-center text-foreground text-3xl md:text-4xl lg:text-[40px] font-semibold leading-tight md:leading-tight lg:leading-[40px]">
-            Effortless eDNA discovery for every researcher
+            Effortless Taxon AI discovery for every researcher
           </h2>
           <p className="self-stretch text-center text-muted-foreground text-sm md:text-sm lg:text-base font-medium leading-[18.20px] md:leading-relaxed lg:leading-relaxed">
             Hear how researchers uncover biodiversity faster, analyze samples seamlessly, <br />
-            and gain confidence in their results using our powerful eDNA tools.
+            and gain confidence in their results using our powerful Taxon AI tools.
           </p>
         </div>
       </div>

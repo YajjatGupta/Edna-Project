@@ -5,6 +5,18 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, User } from "lucide-react";
+import Image from "next/image";
+
+export function Logo() {
+  return (
+    <img src="/logo.png" alt="Taon AI Logo" className="h-10 w-auto" />
+  );
+}
+
+export function AnotherComponent() {
+  return <div>Another</div>;
+}
+
 
 interface HeaderProps {
   isLoggedIn: boolean;
@@ -34,7 +46,16 @@ const Header = ({ isLoggedIn, onGetStartedClick, onLoginClick, onUploadClick }: 
   return (
     <header className="w-full max-w-[1320px] mx-auto py-4 px-6 border-b border-border flex items-center justify-between">
       <div className="flex items-center gap-6">
-        <span className="text-2xl font-bold">eDNA</span>
+       <div className="h-10 w-auto">
+      <Image 
+        src="logos/logo9.png"  // path to your logo in the public folder
+        alt="Taon AI Logo"
+        width={38}      // adjust width
+        height={10}      // adjust height
+        className="object-contain"
+      />
+    </div>
+  
         <nav className="hidden md:flex items-center gap-2">
           {navItems.map((item) => (
             <button

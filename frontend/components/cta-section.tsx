@@ -108,7 +108,7 @@ export function CTASection() {
 </h2>
 
           <p className="text-muted-foreground text-sm md:text-base font-medium leading-[18.20px] md:leading-relaxed break-words max-w-2xl">
-            Discover how researchers analyze eDNA datasets faster, monitor biodiversity seamlessly, and make informed decisions with confidence using Edna's powerful AI tools.
+            Discover how researchers analyze Taxon AI datasets faster, monitor biodiversity seamlessly, and make informed decisions with confidence using Taxon AI's powerful AI tools.
           </p>
         </div>
         <Link href="https://vercel.com/home" target="_blank" rel="noopener noreferrer">

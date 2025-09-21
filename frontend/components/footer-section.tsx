@@ -9,7 +9,7 @@ export function FooterSection() {
         {/* Name Section */}
         <div className="flex flex-col gap-2">
           <h3 className="text-black text-xl font-semibold">Name</h3>
-          <p className="text-black/80 text-sm font-normal">Identifying Taxonomy and Assessing Biodiversity from eDNA Datasets</p>
+          <p className="text-black/80 text-sm font-normal">Identifying Taxonomy and Assessing Biodiversity from Taxon AI Datasets</p>
         </div>
 
         {/* Quick Links Section */}
