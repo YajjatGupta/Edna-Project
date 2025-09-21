@@ -1,50 +1,108 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Search, Sun, User } from "lucide-react"; // Added Sun and User icons
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Menu, Search, User, Sun } from "lucide-react";
 
-export default function ExportsPage() {
+function Header() {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Upload Result", href: "/upload-data" },
     { name: "Taxonomy Result", href: "/analysis-results" },
-    { name: "Biodiversity Insights", href: "/biodiversity-insights" },
     { name: "Exports", href: "/exports" },
   ];
 
-  const handleExport = (type: string) => {
-    console.log(`Exporting ${type} data...`);
-    // NOTE: alert() has been replaced with a console log for functionality
-    // in this environment. You can implement a custom modal or message
-    // box here for a better user experience.
-  };
-
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
-      {/* Header */}
-      <header className="w-full max-w-5xl mx-auto flex items-center justify-between p-4 px-8 border-b border-border mb-8">
-        <h1 className="text-2xl font-bold">eDNA</h1>
-        <div className="flex items-center gap-4 text-sm font-medium">
-          <nav className="hidden md:flex items-center gap-4">
+    <header className="w-full max-w-[1320px] mx-auto py-4 px-6 border-b border-border">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-6">
+          <span className="text-2xl font-bold">eDNA</span>
+          <nav className="hidden md:flex items-center gap-2">
             {navItems.map((item) => (
-              <a key={item.name} href={item.href} className="hover:underline">
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-muted-foreground hover:text-foreground px-4 py-2 rounded-full font-medium transition-colors"
+              >
                 {item.name}
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-4">
-            <Sun size={20} className="text-foreground cursor-pointer" />
-            <User size={20} className="text-foreground cursor-pointer" />
-          </div>
         </div>
-      </header>
+        <div className="flex items-center gap-4">
+          {/* <Button className="p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 hidden md:block">
+            <Sun className="h-5 w-5" />
+          </Button> */}
+          <Button className="p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 hidden md:block">
+            <User className="h-5 w-5" />
+          </Button>
+          <Sheet>
+            <SheetTrigger asChild className="md:hidden">
+              <Button variant="ghost" size="icon">
+                <Menu className="h-7 w-7" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="bottom" className="bg-background border-t border-border text-foreground">
+              <SheetHeader>
+                <SheetTitle className="text-xl font-semibold">Navigation</SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col gap-4 mt-6">
+                {navItems.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-muted-foreground hover:text-foreground text-lg py-2"
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+export default function ExportsPage() {
+  const [showFooter, setShowFooter] = useState(false);
+
+  const handleExport = (type: string) => {
+    console.log(`Exporting ${type} data...`);
+  };
+
+  // Show footer after scrolling a little
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setShowFooter(true);
+      } else {
+        setShowFooter(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
+      {/* Header */}
+      <Header />
 
       {/* Main Content */}
-      <div className="flex-grow flex flex-col items-center pt-8">
-        <main className="w-full max-w-4xl p-6 bg-card rounded-lg border border-border shadow-lg space-y-6 flex flex-col md:flex-row gap-6 items-stretch">
-          {/* Raw Data section */}
-          <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-between">
+      <main className="flex-grow flex flex-col items-center pt-8 px-6 md:px-12">
+        <div className="w-full max-w-4xl flex flex-col md:flex-row gap-6">
+          {/* Raw Data */}
+          <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-between min-h-[320px]">
             <div>
               <h3 className="text-lg font-semibold">Raw Data</h3>
               <p className="text-sm text-muted-foreground mt-1">
@@ -56,7 +114,10 @@ export default function ExportsPage() {
                   placeholder="Search"
                   className="w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card text-foreground"
                 />
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
+                <Search
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  size={18}
+                />
               </div>
             </div>
             <Button
@@ -67,12 +128,13 @@ export default function ExportsPage() {
             </Button>
           </div>
 
-          {/* Processed Reports section */}
-          <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-between">
+          {/* Processed Reports */}
+          <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-between min-h-[320px]">
             <div>
               <h3 className="text-lg font-semibold">Processed Reports</h3>
               <p className="text-sm text-muted-foreground mt-1">
-                Download data after taxonomic classification and abundance analysis
+                Download data after taxonomic classification and abundance
+                analysis
               </p>
               <div className="relative mt-4">
                 <input
@@ -80,7 +142,10 @@ export default function ExportsPage() {
                   placeholder="Search"
                   className="w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card text-foreground"
                 />
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
+                <Search
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  size={18}
+                />
               </div>
             </div>
             <Button
@@ -90,18 +155,26 @@ export default function ExportsPage() {
               Download FASTA file
             </Button>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
 
-      {/* Footer */}
-      <footer className="w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-background">
+      {/* Footer (appears after scrolling) */}
+      <footer
+        className={`w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-background mt-20 transition-opacity duration-700 ${
+          showFooter ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 p-4">
           <div className="flex flex-col gap-2">
             <h3 className="text-foreground text-xl font-semibold">eDNA</h3>
-            <p className="text-foreground/80 text-sm font-normal">Identifying Taxonomy and Assessing Biodiversity from eDNA Datasets</p>
+            <p className="text-foreground/80 text-sm font-normal">
+              Identifying Taxonomy and Assessing Biodiversity from eDNA Datasets
+            </p>
           </div>
           <div className="flex flex-col gap-3">
-            <h3 className="text-foreground text-xl font-semibold">Quick Links</h3>
+            <h3 className="text-foreground text-xl font-semibold">
+              Quick Links
+            </h3>
             <div className="flex flex-col gap-2">
               <a href="#" className="text-foreground/80 text-sm font-normal transition-transform transform hover:scale-[1.02] hover:underline">Upload</a>
               <a href="#" className="text-foreground/80 text-sm font-normal transition-transform transform hover:scale-[1.02] hover:underline">Biodiversity Insights</a>
@@ -110,7 +183,9 @@ export default function ExportsPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <h3 className="text-foreground text-xl font-semibold">Contact Us</h3>
+            <h3 className="text-foreground text-xl font-semibold">
+              Contact Us
+            </h3>
             <div className="flex flex-col gap-2">
               <p className="text-foreground/80 text-sm font-normal transition-transform transform hover:scale-[1.02]">+91 9120731190</p>
               <p className="text-foreground/80 text-sm font-normal transition-transform transform hover:scale-[1.02]">support@gmail.com</p>
@@ -118,15 +193,19 @@ export default function ExportsPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <h3 className="text-foreground text-xl font-semibold">NewsLetter</h3>
-            <p className="text-foreground/80 text-sm font-normal">Subscribe to our NewsLetter</p>
+            <h3 className="text-foreground text-xl font-semibold">
+              Newsletter
+            </h3>
+            <p className="text-foreground/80 text-sm font-normal">Subscribe to our Newsletter</p>
             <div className="flex flex-col gap-2 mt-2">
               <input
                 type="email"
                 placeholder="Enter your Email"
                 className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card text-foreground"
               />
-              <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium transition-transform transform hover:scale-[1.02]">Subscribe</button>
+              <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium transition-transform transform hover:scale-[1.02]">
+                Subscribe
+              </button>
             </div>
           </div>
         </div>

@@ -3,9 +3,69 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Upload } from "lucide-react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { Menu, Upload, Sun, User } from "lucide-react";
+
+// Header Component from the Exports Page
+function Header() {
+  const navItems = [
+    { name: "Home", href: "/" },
+    { name: "Upload Result", href: "/upload-data" },
+    { name: "Taxonomy Result", href: "/analysis-results" },
+    { name: "Exports", href: "/exports" },
+  ];
+
+  return (
+    <header className="w-full max-w-[1320px] mx-auto py-4 px-6 border-b border-border">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-6">
+          <span className="text-2xl font-bold">eDNA</span>
+          <nav className="hidden md:flex items-center gap-2">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-muted-foreground hover:text-foreground px-4 py-2 rounded-full font-medium transition-colors"
+              >
+                {item.name}
+              </a>
+            ))}
+          </nav>
+        </div>
+        <div className="flex items-center gap-4">
+          {/* <Button className="p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 hidden md:block">
+            <Sun className="h-5 w-5" />
+          </Button> */}
+          <Button className="p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 hidden md:block">
+            <User className="h-5 w-5" />
+          </Button>
+          <Sheet>
+            <SheetTrigger asChild className="md:hidden">
+              <Button variant="ghost" size="icon">
+                <Menu className="h-7 w-7" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="bottom" className="bg-background border-t border-border text-foreground">
+              <SheetHeader>
+                <SheetTitle className="text-xl font-semibold">Navigation</SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col gap-4 mt-6">
+                {navItems.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-muted-foreground hover:text-foreground text-lg py-2"
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  );
+}
 
 // Footer Component
 const LocalFooter = () => (
@@ -50,19 +110,30 @@ const LocalFooter = () => (
   </footer>
 );
 
+// Define the props interface for MessageModal
+interface MessageModalProps {
+  message: string;
+  onClose: () => void;
+}
+
+// Message Modal Component
+const MessageModal = ({ message, onClose }: MessageModalProps) => (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+    <div className="bg-card p-6 rounded-lg shadow-xl max-w-sm w-full">
+      <h4 className="text-lg font-semibold mb-2">Notice</h4>
+      <p className="text-sm text-muted-foreground">{message}</p>
+      <div className="flex justify-end mt-4">
+        <Button onClick={onClose}>Close</Button>
+      </div>
+    </div>
+  </div>
+);
+
 export default function UploadPage() {
-  const router = useRouter();
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [showFooter, setShowFooter] = useState(false);
-
-  const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Upload Result", href: "/upload-data" },
-    { name: "Taxonomy Result", href: "/analysis-results" },
-    { name: "Exports", href: "/exports" },
-  ];
+  const [messageModal, setMessageModal] = useState({ visible: false, message: "" });
 
   // Scroll handler to show footer only at bottom
   useEffect(() => {
@@ -91,55 +162,32 @@ export default function UploadPage() {
   const handleDivClick = () => fileInputRef.current?.click();
 
   const handleStartAnalysis = async () => {
-    if (files.length === 0) return alert("Please upload at least one FASTA file.");
+    if (files.length === 0) {
+      setMessageModal({ visible: true, message: "Please upload at least one FASTA file." });
+      return;
+    }
     const formData = new FormData();
     files.forEach((file) => formData.append("fasta_files", file));
     try {
       const res = await fetch("http://127.0.0.1:5001/analyze", { method: "POST", body: formData });
-      if (res.ok) { alert("Analysis submitted! Redirecting..."); router.push("/analysis-results"); }
-      else { const errorData = await res.json(); alert(`Error: ${errorData.message}`); }
-    } catch { alert("Network error. Please try again."); }
+      if (res.ok) {
+        setMessageModal({ visible: true, message: "Analysis submitted! Redirecting..." });
+        setTimeout(() => {
+          window.location.href = "/analysis-results";
+        }, 2000);
+      } else {
+        const errorData = await res.json();
+        setMessageModal({ visible: true, message: `Error: ${errorData.message}` });
+      }
+    } catch {
+      setMessageModal({ visible: true, message: "Network error. Please try again." });
+    }
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* Navbar */}
-      <header className="w-full py-4 px-6 border-b border-border">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <img src="/logos/logo.png" alt="Logo" className="h-16 w-auto" />
-            <nav className="hidden md:flex items-center gap-2">
-              {navItems.map((item) => (
-                <Link key={item.name} href={item.href} className="text-[#888888] hover:text-foreground px-4 py-2 rounded-full font-medium transition-colors">
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button className="hidden md:block bg-secondary text-secondary-foreground px-5 py-2.5 rounded-full font-medium shadow-sm text-base hover:scale-105 transition-transform">
-              Upload Data
-            </Button>
-            <Sheet>
-              <SheetTrigger asChild className="md:hidden">
-                <Button variant="ghost" size="icon"><Menu className="h-7 w-7" /></Button>
-              </SheetTrigger>
-              <SheetContent side="bottom" className="bg-background border-t border-border text-foreground">
-                <SheetHeader>
-                  <SheetTitle className="text-left text-xl font-semibold">Navigation</SheetTitle>
-                </SheetHeader>
-                <nav className="flex flex-col gap-4 mt-6">
-                  {navItems.map((item) => (
-                    <Link key={item.name} href={item.href} className="text-[#888888] hover:text-foreground text-lg py-2">
-                      {item.name}
-                    </Link>
-                  ))}
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Upload Section */}
       <main className="flex-grow flex flex-col items-center pt-8 px-6 md:px-12">
@@ -182,6 +230,14 @@ export default function UploadPage() {
       <div className={`${showFooter ? "opacity-100" : "opacity-0 pointer-events-none"} transition-opacity duration-500`}>
         <LocalFooter />
       </div>
+
+      {/* Message Modal */}
+      {messageModal.visible && (
+        <MessageModal
+          message={messageModal.message}
+          onClose={() => setMessageModal({ ...messageModal, visible: false })}
+        />
+      )}
     </div>
   );
 }

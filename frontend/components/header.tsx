@@ -59,32 +59,36 @@ export function Header({ onGetStartedClick, isLoggedIn, onLoginClick, onUploadCl
         <div className="flex items-center gap-4">
           {/* Conditional rendering for desktop buttons */}
           {!isLoggedIn ? (
-            <Button
-              onClick={onGetStartedClick}
-              className="hidden md:block bg-secondary text-secondary-foreground 
-                         px-8 py-3 rounded-full font-medium shadow-sm
-                         text-lg
-                         transition-transform duration-300 
-                         hover:scale-110 hover:shadow-xl 
-                         hover:bg-secondary hover:text-secondary-foreground
-                         active:scale-95"
-            >
-              Get Started
-            </Button>
-          ) : (
-            <Button
-              onClick={onUploadClick}
-              className="hidden md:block bg-secondary text-secondary-foreground 
-                         px-8 py-3 rounded-full font-medium shadow-sm
-                         text-lg
-                         transition-transform duration-300 
-                         hover:scale-110 hover:shadow-xl 
-                         hover:bg-secondary hover:text-secondary-foreground
-                         active:scale-95 active:bg-gray-200"
-            >
-              Upload Data
-            </Button>
-          )}
+  <Button
+    onClick={onGetStartedClick}
+    className="hidden md:inline-flex items-center justify-center 
+               bg-secondary text-secondary-foreground 
+               px-8 py-3 rounded-full font-medium shadow-sm
+               text-lg
+               transition-transform duration-300 
+               hover:scale-110 hover:shadow-xl 
+               hover:bg-secondary hover:text-secondary-foreground
+               active:scale-95"
+  >
+    Get Started
+  </Button>
+) : (
+  <Button
+    onClick={onUploadClick}
+    className="hidden md:inline-flex items-center justify-center 
+               bg-secondary text-secondary-foreground 
+               px-7 py-2.5 rounded-full font-medium shadow-sm
+               text-lg
+               transition-transform duration-300 
+               hover:scale-110 hover:shadow-xl 
+               hover:bg-secondary hover:text-secondary-foreground
+               active:scale-95 active:bg-gray-200"
+  >
+    Upload Data
+  </Button>
+)
+}
+
 
           {/* Mobile Sheet menu */}
           <Sheet>
