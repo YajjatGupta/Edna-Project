@@ -6,7 +6,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Menu, User } from "lucide-react";
 import Link from "next/link";
 
-// CSV Data
+// Raw data provided by the user, enclosed in a template literal (backticks)
 const rawData = `Sequence ID,Predicted Species,Confidence,Kingdom,Phylum,Class,Order,Family,Genus,Species
 1,Chilodonella uncinata,28.63%,Chromista,Ciliophora,Phyllopharyngea,Chlamydodontida,Chilodonellidae,Chilodonella,Chilodonella uncinata
 2,Parvochelus russus,92.84%,Animalia,Arthropoda,Malacostraca,Decapoda,Diogenidae,Parvochelus,Parvochelus russus
@@ -201,6 +201,20 @@ export default function AnalysisResultsPage() {
                 </option>
               ))}
             </select>
+            
+            {/* START OF NEW CODE: This block displays the selected species and confidence */}
+            {selectedSpecies && (
+              <div className="mt-6 p-6 border rounded-lg bg-gray-50 dark:bg-gray-800">
+                <p className="text-xl font-medium">
+                  <span className="font-bold">Species:</span> {selectedSpecies["Predicted Species"]}
+                </p>
+                <p className="text-xl font-medium mt-2">
+                  <span className="font-bold">Confidence:</span> {selectedSpecies.Confidence}%
+                </p>
+              </div>
+            )}
+            {/* END OF NEW CODE */}
+
           </div>
 
           {/* Taxonomic Tree */}
@@ -209,7 +223,6 @@ export default function AnalysisResultsPage() {
             <div className="text-muted-foreground text-sm space-y-2">
               {selectedSpecies ? (
                 <>
-                  <p><strong>Confidence:</strong> {selectedSpecies.Confidence}%</p>
                   <p><strong>Kingdom:</strong> {selectedSpecies.Kingdom}</p>
                   <p><strong>Phylum:</strong> {selectedSpecies.Phylum}</p>
                   <p><strong>Class:</strong> {selectedSpecies.Class}</p>
