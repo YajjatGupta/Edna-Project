@@ -18,6 +18,32 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
 
 # ------------------------------
+# Helper Function to Check Directory
+# ------------------------------
+def is_directory_empty(dir_path):
+    """
+    Checks if the given directory path is empty or doesn't exist.
+    Returns True if empty, False otherwise.
+    """
+    if not os.path.exists(dir_path):
+        return True
+    
+    # We use os.listdir to get a list of files in the directory.
+    # The 'not' operator checks if the list is empty.
+    return not os.listdir(dir_path)
+
+# ------------------------------
+# New API Endpoint to Check Directory Status
+# ------------------------------
+@app.route('/check-uploads', methods=['GET'])
+def check_uploads_status():
+    """
+    Returns a JSON response indicating whether the uploads directory is empty.
+    """
+    is_empty = is_directory_empty(app.config['UPLOAD_FOLDER'])
+    return jsonify({"is_empty": is_empty}), 200
+
+# ------------------------------
 # Analysis Route
 # ------------------------------
 @app.route('/analyze', methods=['POST'])
