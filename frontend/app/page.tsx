@@ -21,12 +21,26 @@ export default function LandingPage() {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // ✅ Load login state from localStorage
+  // Load login state from localStorage on initial render
   useEffect(() => {
     const storedLogin = localStorage.getItem("isLoggedIn");
     if (storedLogin === "true") {
       setIsLoggedIn(true);
     }
+  }, []);
+
+  // New logic: Clear local storage when the tab is closed
+  useEffect(() => {
+    const handleTabClose = () => {
+      localStorage.removeItem("isLoggedIn");
+    };
+
+    window.addEventListener("beforeunload", handleTabClose);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener("beforeunload", handleTabClose);
+    };
   }, []);
 
   // --- Modal control ---
@@ -60,7 +74,7 @@ export default function LandingPage() {
       const data = await res.json();
       if (res.status === 201) {
         setIsLoggedIn(true);
-        localStorage.setItem("isLoggedIn", "true"); // ✅ persist
+        localStorage.setItem("isLoggedIn", "true"); // persist login state
         closeModal();
         console.log("User signed up successfully!");
       } else {
@@ -83,7 +97,7 @@ export default function LandingPage() {
       const data = await res.json();
       if (res.status === 200) {
         setIsLoggedIn(true);
-        localStorage.setItem("isLoggedIn", "true"); // ✅ persist
+        localStorage.setItem("isLoggedIn", "true"); // persist login state
         closeModal();
         console.log("User signed in successfully!");
       } else {
@@ -97,7 +111,7 @@ export default function LandingPage() {
   // --- Logout handler (optional) ---
   const handleLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem("isLoggedIn"); // ✅ clear persistence
+    localStorage.removeItem("isLoggedIn"); // clear persistence
     console.log("User logged out");
   };
 
