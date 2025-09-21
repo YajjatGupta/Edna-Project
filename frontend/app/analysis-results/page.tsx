@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, User } from "lucide-react";
 import Link from "next/link";
-import Footer from "@/components/footer-section";
 import Image from "next/image";
 
 // IMPORT THE RAW DATA
@@ -98,9 +97,54 @@ function Header() {
   );
 }
 
+// Correctly defined LocalFooter component
 const LocalFooter = () => (
-  <footer className="w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-background">
-    {/* same footer code */}
+  <footer className={`w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-background mt-20 transition-opacity duration-700`}>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 p-4">
+      <div className="flex flex-col gap-2">
+        <h3 className="text-foreground text-xl font-semibold">eDNA</h3>
+        <p className="text-foreground/80 text-sm font-normal">
+          Identifying Taxonomy and Assessing Biodiversity from eDNA Datasets
+        </p>
+      </div>
+      <div className="flex flex-col gap-3">
+        <h3 className="text-foreground text-xl font-semibold">Quick Links</h3>
+        <div className="flex flex-col gap-2">
+          <Link href="/upload-data" className="text-foreground/80 text-sm font-normal hover:underline">
+            Upload
+          </Link>
+          <Link href="/" className="text-foreground/80 text-sm font-normal hover:underline">
+            Home
+          </Link>
+          <Link href="/analysis-results" className="text-foreground/80 text-sm font-normal hover:underline">
+            Taxonomy Result
+          </Link>
+          <Link href="/exports" className="text-foreground/80 text-sm font-normal hover:underline">
+            Export
+          </Link>
+        </div>
+      </div>
+      <div className="flex flex-col gap-3">
+        <h3 className="text-foreground text-xl font-semibold">Contact Us</h3>
+        <p className="text-foreground/80 text-sm">+91 9120731190</p>
+        <p className="text-foreground/80 text-sm">support@gmail.com</p>
+        <p className="text-foreground/80 text-sm">Greater Noida</p>
+      </div>
+      <div className="flex flex-col gap-3">
+        <h3 className="text-foreground text-xl font-semibold">Newsletter</h3>
+        <p className="text-foreground/80 text-sm font-normal">Subscribe to our Newsletter</p>
+        <div className="flex flex-col gap-2 mt-2">
+          <input
+            type="email"
+            placeholder="Enter your Email"
+            className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card text-foreground"
+          />
+          <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium hover:bg-primary/90 transition">
+            Subscribe
+          </button>
+        </div>
+      </div>
+    </div>
   </footer>
 );
 
@@ -278,7 +322,7 @@ export default function AnalysisResultsPage() {
           </div>
         )}
       </main>
-
+      
       {/* Footer */}
       <LocalFooter />
     </div>
