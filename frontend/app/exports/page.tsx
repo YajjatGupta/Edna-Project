@@ -70,19 +70,81 @@ function Header() {
   );
 }
 
+// Local Footer component as provided
+const LocalFooter = () => (
+    <footer
+      className={`w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-background mt-20 transition-opacity duration-700`}
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 p-4">
+        <div className="flex flex-col gap-2">
+          <h3 className="text-foreground text-xl font-semibold">eDNA</h3>
+          <p className="text-foreground/80 text-sm font-normal">
+            Identifying Taxonomy and Assessing Biodiversity from eDNA Datasets
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <h3 className="text-foreground text-xl font-semibold">Quick Links</h3>
+          <div className="flex flex-col gap-2">
+            <Link href="/upload-data" className="text-foreground/80 text-sm font-normal hover:underline">
+              Upload
+            </Link>
+            <Link href="/" className="text-foreground/80 text-sm font-normal hover:underline">
+              Home
+            </Link>
+            <Link href="/analysis-results" className="text-foreground/80 text-sm font-normal hover:underline">
+              Taxonomy Result
+            </Link>
+            <Link href="/exports" className="text-foreground/80 text-sm font-normal hover:underline">
+              Export
+            </Link>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <h3 className="text-foreground text-xl font-semibold">Contact Us</h3>
+          <p className="text-foreground/80 text-sm">+91 9120731190</p>
+          <p className="text-foreground/80 text-sm">support@gmail.com</p>
+          <p className="text-foreground/80 text-sm">Greater Noida</p>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <h3 className="text-foreground text-xl font-semibold">Newsletter</h3>
+          <p className="text-foreground/80 text-sm font-normal">Subscribe to our Newsletter</p>
+          <div className="flex flex-col gap-2 mt-2">
+            <input
+              type="email"
+              placeholder="Enter your Email"
+              className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card text-foreground"
+            />
+            <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium hover:bg-primary/90 transition">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+);
+
 export default function ExportsPage() {
-  const [showFooter, setShowFooter] = useState(false);
+  const [isFolderEmpty, setIsFolderEmpty] = useState(true);
 
-  const handleExport = (type: string) => {
-    console.log(`Exporting ${type} data...`);
-  };
-
+  // Fetch the folder status from the backend API
   useEffect(() => {
-    const handleScroll = () => {
-      setShowFooter(window.scrollY > 50);
+    const checkFolderStatus = async () => {
+      try {
+        const res = await fetch("http://127.0.0.1:5001/check-uploads");
+        const data = await res.json();
+        // Update state based on the backend response
+        setIsFolderEmpty(data.is_empty);
+      } catch (err) {
+        console.error("Failed to check folder status:", err);
+        // On error, assume the folder is empty to provide the upload option
+        setIsFolderEmpty(true);
+      }
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    checkFolderStatus();
   }, []);
 
   return (
@@ -90,29 +152,30 @@ export default function ExportsPage() {
       <Header />
 
       <main className="flex-grow flex flex-col items-center pt-8 px-6 md:px-12">
-        <div className="w-full max-w-4xl flex flex-col md:flex-row gap-6">
-          {/* Raw Data */}
-          <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-start min-h-[320px]">
-            <h3 className="text-lg font-semibold">Raw Data</h3>
-            <p className="text-sm text-muted-foreground mt-1">
-              Download unprocessed or minimally processed data
-            </p>
-            <Button
-              asChild
-              className="w-full bg-primary text-primary-foreground font-semibold mt-6"
-            >
-              <a href="/downloads/eDNA_testing.fasta" download>
-                Download FASTA file
-              </a>
-            </Button>
-          </div>
+        {!isFolderEmpty ? (
+          <div className="w-full max-w-4xl flex flex-col md:flex-row gap-6">
+            {/* Raw Data */}
+            <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-start min-h-[320px]">
+              <h3 className="text-lg font-semibold">Raw Data</h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                Download unprocessed or minimally processed data
+              </p>
+              <Button
+                asChild
+                className="w-full bg-primary text-primary-foreground font-semibold mt-6"
+              >
+                <a href="/downloads/eDNA_testing.fasta" download>
+                  Download FASTA file
+                </a>
+              </Button>
+            </div>
 
-          {/* Processed Reports */}
-          <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-start min-h-[320px]">
-            <h3 className="text-lg font-semibold">Processed Reports</h3>
-            <p className="text-sm text-muted-foreground mt-1">
-              Download data after taxonomic classification and abundance analysis
-            </p>
+            {/* Processed Reports */}
+            <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-start min-h-[320px]">
+              <h3 className="text-lg font-semibold">Processed Reports</h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                Download data after taxonomic classification and abundance analysis
+              </p>
               <Button
                 asChild
                 className="w-full bg-primary text-primary-foreground font-semibold mt-6"
@@ -122,65 +185,22 @@ export default function ExportsPage() {
                 </a>
               </Button>
             </div>
-
-        </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center h-[50vh] text-center">
+            <h2 className="text-3xl font-bold mb-4">No Data Available for Export</h2>
+            <p className="text-lg text-muted-foreground mb-6">
+              Please go to the upload page and run an analysis first.
+            </p>
+            <Link href="/upload-data">
+              <Button size="lg">Go to Upload Page</Button>
+            </Link>
+          </div>
+        )}
       </main>
 
       {/* Footer */}
-      <footer
-        className={`w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-background mt-20 transition-opacity duration-700 ${
-          showFooter ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 p-4">
-          <div className="flex flex-col gap-2">
-            <h3 className="text-foreground text-xl font-semibold">eDNA</h3>
-            <p className="text-foreground/80 text-sm font-normal">
-              Identifying Taxonomy and Assessing Biodiversity from eDNA Datasets
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <h3 className="text-foreground text-xl font-semibold">Quick Links</h3>
-            <div className="flex flex-col gap-2">
-              <Link href="/upload-data" className="text-foreground/80 text-sm font-normal hover:underline">
-                Upload
-              </Link>
-              <Link href="/" className="text-foreground/80 text-sm font-normal hover:underline">
-                Home
-              </Link>
-              <Link href="/analysis-results" className="text-foreground/80 text-sm font-normal hover:underline">
-                Taxonomy Result
-              </Link>
-              <Link href="/exports" className="text-foreground/80 text-sm font-normal hover:underline">
-                Export
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <h3 className="text-foreground text-xl font-semibold">Contact Us</h3>
-            <p className="text-foreground/80 text-sm">+91 9120731190</p>
-            <p className="text-foreground/80 text-sm">support@gmail.com</p>
-            <p className="text-foreground/80 text-sm">Greater Noida</p>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <h3 className="text-foreground text-xl font-semibold">Newsletter</h3>
-            <p className="text-foreground/80 text-sm font-normal">Subscribe to our Newsletter</p>
-            <div className="flex flex-col gap-2 mt-2">
-              <input
-                type="email"
-                placeholder="Enter your Email"
-                className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card text-foreground"
-              />
-              <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium hover:bg-primary/90 transition">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <LocalFooter />
     </div>
   );
 }
