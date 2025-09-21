@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, User } from "lucide-react";
 import Link from "next/link";
-import Footer from "@/components/footer-section"; 
 
 // IMPORT THE RAW DATA FROM THE NEW FILE
 import { rawData } from "@/lib/data";
