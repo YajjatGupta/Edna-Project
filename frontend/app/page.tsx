@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { HeroSection } from "@/components/hero-section";
 import { DashboardPreview } from "@/components/dashboard-preview";
-import { SocialProof } from "@/components/social-proof";
+// import { SocialProof } from "@/components/social-proof";
 import { BentoSection } from "@/components/bento-section";
 import { LargeTestimonial } from "@/components/large-testimonial";
 // import { PricingSection } from "@/components/pricing-section";
@@ -111,12 +111,12 @@ export default function LandingPage() {
             </AnimatedSection>
           </div>
         </main>
-        <AnimatedSection
+        {/* <AnimatedSection
           className="relative z-10 max-w-[1320px] mx-auto px-6 mt-[411px] md:mt-[400px]"
           delay={0.1}
         >
           <SocialProof />
-        </AnimatedSection>
+        </AnimatedSection> */}
         <AnimatedSection
           id="features-section"
           className="relative z-10 max-w-[1320px] mx-auto mt-16"

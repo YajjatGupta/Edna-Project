@@ -4,7 +4,7 @@ const testimonials = [
   {
     quote:
       "The real-time code suggestions from Pointer feel like having a senior engineer reviewing every line of code as you write. The accuracy of its recommendations has improved our overall code quality, reduced review time.",
-    name: "Annette Black",
+    name: "Vipin Yadav",
     company: "Sony",
     avatar: "/images/avatars/annette-black.png",
     type: "large-teal",
@@ -20,7 +20,7 @@ const testimonials = [
   {
     quote:
       "Pointer’s multi-agent coding feature has been a game changer. We’re fixing complex bugs in hours instead of spending entire sprints on them.",
-    name: "Cameron Williamson",
+    name: "Yajat Gupta",
     company: "IBM",
     avatar: "/images/avatars/cameron-williamson.png",
     type: "small-dark",
@@ -28,7 +28,7 @@ const testimonials = [
   {
     quote:
       "We no longer juggle multiple tools. Pointer brought all our integrations together in one place, which simplified our entire workflow.",
-    name: "Robert Fox",
+    name: "Vaishnavi Srivastava",
     company: "MasterCard",
     avatar: "/images/avatars/robert-fox.png",
     type: "small-dark",
@@ -36,7 +36,7 @@ const testimonials = [
   {
     quote:
       "We started with the free plan just to test it out, but within a week we upgraded to Pro. Now, we can’t imagine coding without it",
-    name: "Darlene Robertson",
+    name: "Harsh Mishra",
     company: "Ferrari",
     avatar: "/images/avatars/darlene-robertson.png",
     type: "small-dark",
@@ -44,7 +44,7 @@ const testimonials = [
   {
     quote:
       "Collaborative coding feels effortless now. With Pointer’s real-time previews, pair programming has become faster and more productive.",
-    name: "Cody Fisher",
+    name: "Aeshni Yadav",
     company: "Apple",
     avatar: "/images/avatars/cody-fisher.png",
     type: "small-dark",
@@ -52,7 +52,7 @@ const testimonials = [
   {
     quote:
       "Deploying on Vercel with Pointer was not just simple, it felt seamless. We went from coding to seeing our changes live in minutes without worrying about build pipelines or configuration issues.",
-    name: "Albert Flores",
+    name: "Atishay",
     company: "Louis Vuitton",
     avatar: "/images/avatars/albert-flores.png",
     type: "large-light",
@@ -142,11 +142,11 @@ export function TestimonialGridSection() {
       <div className="self-stretch py-6 md:py-8 lg:py-14 flex flex-col justify-center items-center gap-2">
         <div className="flex flex-col justify-start items-center gap-4">
           <h2 className="text-center text-foreground text-3xl md:text-4xl lg:text-[40px] font-semibold leading-tight md:leading-tight lg:leading-[40px]">
-            Coding made effortless
+            Effortless eDNA discovery for every researcher
           </h2>
           <p className="self-stretch text-center text-muted-foreground text-sm md:text-sm lg:text-base font-medium leading-[18.20px] md:leading-relaxed lg:leading-relaxed">
-            {"Hear how developers ship products faster, collaborate seamlessly,"} <br />{" "}
-            {"and build with confidence using Pointer's powerful AI tools"}
+            {"Hear how researchers uncover biodiversity faster, analyze samples seamlessly,"} <br />{" "}
+            {"and gain confidence in their results using our powerful eDNA tools."}
           </p>
         </div>
       </div>

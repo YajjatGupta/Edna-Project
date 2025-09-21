@@ -16,9 +16,9 @@ interface HeaderProps {
 
 export function Header({ onGetStartedClick, isLoggedIn, onLoginClick, onUploadClick }: HeaderProps) {
   const navItems = [
-    { name: "Features", href: "#features-section" },
-    { name: "Pricing", href: "#pricing-section" },
-    { name: "Testimonials", href: "#testimonials-section" },
+    { name: "Home", href: "#features-section" },
+    { name: "Overview", href: "" },
+    { name: "About Us", href: "#testimonials-section" },
   ]
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -53,20 +53,33 @@ export function Header({ onGetStartedClick, isLoggedIn, onLoginClick, onUploadCl
         <div className="flex items-center gap-4">
           {/* Conditional rendering for the desktop header button */}
           {!isLoggedIn ? (
-            <Button
-              onClick={onGetStartedClick}
-              className="hidden md:block bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full font-medium shadow-sm"
-            >
-              Get Started
-            </Button>
-          ) : (
-            <Button
-              onClick={onUploadClick} // <-- Use the new prop here
-              className="hidden md:block bg-secondary text-secondary-foreground hover:bg-secondary/120 px-6 py-2 rounded-full font-medium shadow-sm"
-            >
-              <Upload className="mr-2 h-5 w-5" /> Upload Data
-            </Button>
-          )}
+  <Button
+    onClick={onGetStartedClick}
+    className="hidden md:block bg-secondary text-secondary-foreground 
+               px-6 py-2 rounded-full font-medium shadow-sm
+               transition-transform duration-300 
+               hover:scale-105 hover:shadow-lg 
+               hover:bg-secondary hover:text-secondary-foreground
+               active:scale-95"
+  >
+    Get Started
+  </Button>
+) : (
+  <Button
+    onClick={onUploadClick}
+    className="hidden md:block bg-secondary text-secondary-foreground 
+px-6 py-2 rounded-full font-medium shadow-sm
+transition-transform duration-300 
+hover:scale-105 hover:shadow-lg 
+hover:bg-secondary hover:text-secondary-foreground
+active:scale-95 active:bg-gray-200
+"
+  >
+    <Upload className="mr-2 h-5 w-5" /> Upload Data
+  </Button>
+)}
+
+
           <Sheet>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon" className="text-foreground">

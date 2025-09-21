@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
-import Link from "next/link"; // Import Link for navigation
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function UploadPage() {
@@ -15,7 +15,7 @@ export default function UploadPage() {
     { name: "Home", href: "/" },
     { name: "Upload Result", href: "/upload-data" },
     { name: "Taxonomy Result", href: "/analysis-results" },
-    { name: "Exports", href: "/analysis-results" },
+    { name: "Exports", href: "/exports" },
   ];
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -70,7 +70,7 @@ export default function UploadPage() {
         const data = await res.json();
         console.log("Analysis started successfully:", data);
         alert("Analysis successfully submitted! You will now be redirected to the results page.");
-        router.push('/analysis-results/page.tsx');
+        router.push('/analysis-results');
       } else {
         const errorData = await res.json();
         console.error("Failed to start analysis:", errorData.message);
@@ -84,7 +84,6 @@ export default function UploadPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground p-8">
-      {/* Simple, self-contained header */}
       <header className="w-full max-w-4xl mx-auto flex items-center justify-between p-4 px-8 border-b border-border mb-8">
         <h1 className="text-2xl font-bold">eDNA</h1>
         <div className="flex items-center gap-4 text-sm font-medium">

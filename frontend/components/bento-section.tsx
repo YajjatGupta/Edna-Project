@@ -45,36 +45,40 @@ const BentoCard = ({ title, description, Component }: BentoCardProps) => (
 export function BentoSection() {
   const cards = [
     {
-      title: "AI-powered code reviews.",
-      description: "Get real-time, smart suggestions for cleaner code.",
+      title: "Upload eDNA sequences",
+      description: "Easily upload your FASTA files containing environmental DNA data.",
       Component: AiCodeReviews,
     },
     {
-      title: "Real-time coding previews",
-      description: "Chat, collaborate, and instantly preview changes together.",
+      title: "Add sample metadata",
+      description: "Provide sampling details such as location, depth, and collection date.",
       Component: RealtimeCodingPreviews,
     },
     {
-      title: "One-click integrations",
-      description: "Easily connect your workflow with popular dev tools.",
+      title: "Automated preprocessing",
+      description: "Run quality checks and preprocessing before downstream analysis.",
       Component: OneClickIntegrationsIllustration,
     },
     {
-      title: "Flexible MCP connectivity",
-      description: "Effortlessly manage and configure MCP server access.",
+      title: "Species identification",
+      description: "Match sequences against reference databases to identify organisms.",
       Component: MCPConnectivityIllustration,
     },
     {
-      title: "Launch parallel coding agents",
-      description: "Solve complex problems faster with multiple AI agents.",
+      title: "Biodiversity & abundance",
+      description: "Get insights into species diversity, abundance, and richness.",
       Component: ParallelCodingAgents,
     },
     {
-      title: "Deployment made easy",
-      description: "Go from code to live deployment on Vercel instantly.",
+      title: "Collaborative reporting",
+      description: "Generate interactive reports and share results with your team.",
       Component: EasyDeployment,
     },
-  ]
+  ];
+
+
+
+
 
   return (
     <section className="w-full px-5 flex flex-col justify-center items-center overflow-visible bg-transparent">
@@ -86,7 +90,7 @@ export function BentoSection() {
               Empower Your Biodiversity Research
             </h2>
             <p className="w-full max-w-[600px] text-center text-muted-foreground text-lg md:text-xl font-medium leading-relaxed">
-              Leverage cutting-edge AI to process eDNA datasets, visualize species diversity, and make informed decisions for conservation and research. Explore your data in real-time with interactive dashboards.
+              {/* Leverage cutting-edge AI to process eDNA datasets, visualize species diversity, and make informed decisions for conservation and research. Explore your data in real-time with interactive dashboards. */}
             </p>
           </div>
         </div>

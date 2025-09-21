@@ -448,21 +448,35 @@ export function HeroSection({ onGetStarted, isLoggedIn }: HeroSectionProps) {
       </div>
 
       {!isLoggedIn ? (
-        <Button
-          onClick={onGetStarted}
-          className="relative z-10 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-3 rounded-full font-medium text-base shadow-lg ring-1 ring-white/10"
-        >
-          Get Started
-        </Button>
-      ) : (
-        <Link href="/upload-data">
-          <Button
-            className="relative z-10 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-3 rounded-full font-medium text-base shadow-lg ring-1 ring-white/10"
-          >
-            <Upload className="mr-2 h-5 w-5" /> Upload Data
-          </Button>
-        </Link>
-      )}
+  <Button
+    onClick={onGetStarted}
+    className="relative z-10 bg-white text-black 
+               px-8 py-3 rounded-full font-medium text-base 
+               shadow-lg ring-1 ring-black/10
+               transition-transform duration-300 
+               hover:scale-105 hover:shadow-xl 
+               hover:bg-white hover:text-black
+               active:scale-95"
+  >
+    Get Started
+  </Button>
+) : (
+  <Link href="/upload-data">
+    <Button
+      className="relative z-10 bg-white text-black 
+                 px-8 py-3 rounded-full font-medium text-base 
+                 shadow-lg ring-1 ring-black/10
+                 transition-transform duration-300 
+                 hover:scale-105 hover:shadow-xl 
+                 hover:bg-white hover:text-black
+                 active:scale-95"
+    >
+      <Upload className="mr-2 h-5 w-5" /> Upload Data
+    </Button>
+  </Link>
+)}
+
+
     </section>
   )
 }
