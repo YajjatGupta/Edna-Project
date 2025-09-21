@@ -172,6 +172,20 @@ export default function AnalysisResultsPage() {
                 <option key={idx} value={speciesName}>{speciesName}</option>
               ))}
             </select>
+            
+            {/* START OF NEW CODE: This block displays the selected species and confidence */}
+            {selectedSpecies && (
+              <div className="mt-6 p-6 border rounded-lg bg-gray-50 dark:bg-gray-800">
+                <p className="text-xl font-medium">
+                  <span className="font-bold">Species:</span> {selectedSpecies["Predicted Species"]}
+                </p>
+                <p className="text-xl font-medium mt-2">
+                  <span className="font-bold">Confidence:</span> {selectedSpecies.Confidence}%
+                </p>
+              </div>
+            )}
+            {/* END OF NEW CODE */}
+
           </div>
 
           {/* Taxonomic Tree Box */}
@@ -180,7 +194,6 @@ export default function AnalysisResultsPage() {
             <div className="text-muted-foreground text-sm space-y-2">
               {selectedSpecies ? (
                 <>
-                  <p><strong>Confidence:</strong> {selectedSpecies.Confidence}%</p>
                   <p><strong>Kingdom:</strong> {selectedSpecies.Kingdom}</p>
                   <p><strong>Phylum:</strong> {selectedSpecies.Phylum}</p>
                   <p><strong>Class:</strong> {selectedSpecies.Class}</p>
