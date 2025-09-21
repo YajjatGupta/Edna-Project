@@ -7,27 +7,27 @@ import { ChevronDown } from "lucide-react"
 // --- Data Source ---
 const faqData = [
   {
-    question: "What is Taxon AI and who is it for?",
+    question: "What is TaxonAI and who is it for?",
     answer:
-      "Taxon AI is an AI-powered platform designed to identify species and assess biodiversity from Taxon AI datasets. It is ideal for researchers, conservationists, educators, and environmental organizations looking to streamline biodiversity analysis.",
+      "TaxonAI is an AI-powered platform designed to identify species and assess biodiversity from TaxonAI datasets. It is ideal for researchers, conservationists, educators, and environmental organizations looking to streamline biodiversity analysis.",
   },
   {
-    question: "How does Taxon AI analyze Taxon AI samples?",
+    question: "How does TaxonAI analyze TaxonAI samples?",
     answer:
-      "Taxon AI uses advanced AI algorithms to classify species from environmental DNA sequences, providing accurate taxonomic identifications, diversity metrics, and interactive visualizations.",
+      "TaxonAI uses advanced AI algorithms to classify species from environmental DNA sequences, providing accurate taxonomic identifications, diversity metrics, and interactive visualizations.",
   },
   {
-    question: "Can I integrate Taxon AI with my existing research tools?",
+    question: "Can I integrate TaxonAI with my existing research tools?",
     answer:
       "Yes! You can export results in standard formats (CSV, JSON) to integrate with other data analysis pipelines, GIS software, or reporting tools.",
   },
   {
     question: "What data can I upload?",
     answer:
-      "Taxon AI supports Taxon AI datasets in CSV or FASTA format. You can upload samples from soil, water, or other environmental sources for analysis.",
+      "TaxonAI supports TaxonAI datasets in CSV or FASTA format. You can upload samples from soil, water, or other environmental sources for analysis.",
   },
   {
-    question: "Is my data secure with Taxon AI?",
+    question: "Is my data secure with TaxonAI?",
     answer:
       "Absolutely. All uploaded data is encrypted and stored securely. Users have full control over who can access their datasets and results.",
   },
@@ -39,12 +39,12 @@ const faqData = [
   {
     question: "Can I visualize biodiversity changes over time?",
     answer:
-      "Yes! Taxon AI provides interactive charts, heatmaps, and time-series visualizations to track changes in species diversity across regions or time periods.",
+      "Yes! TaxonAI provides interactive charts, heatmaps, and time-series visualizations to track changes in species diversity across regions or time periods.",
   },
   {
     question: "How do I get started?",
     answer:
-      "Simply sign up, upload your Taxon AI dataset, and explore the results in your personalized dashboard.",
+      "Simply sign up, upload your TaxonAI dataset, and explore the results in your personalized dashboard.",
   },
 ];
 
@@ -116,7 +116,7 @@ export function FAQSection() {
             Frequently Asked Questions
           </h2>
           <p className="self-stretch text-center text-muted-foreground text-sm font-medium leading-[18.20px] break-words">
-            Everything you need to know about Taxon AI and how it can transform biodiversity research using AI.
+            Everything you need to know about TaxonAI and how it can transform biodiversity research using AI.
           </p>
         </div>
       </div>

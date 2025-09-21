@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import {
   Sheet,
   SheetContent,
@@ -12,6 +13,7 @@ import {
 import { Menu, User } from "lucide-react";
 import Link from "next/link";
 
+// ------------------ Header Component ------------------
 function Header() {
   const navItems = [
     { name: "Home", href: "/" },
@@ -24,7 +26,16 @@ function Header() {
     <header className="w-full max-w-[1320px] mx-auto py-4 px-6 border-b border-border">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-6">
-          <span className="text-2xl font-bold">eDNA</span>
+          {/* This is the div that you want to put the image in */}
+          <div className="h-10 w-auto">
+            <Image
+              src="/logos/logo9.png" // The path is correct
+              alt="Taon AI Logo"
+              width={38}
+              height={10}
+              className="object-contain"
+            />
+          </div>
           <nav className="hidden md:flex items-center gap-2">
             {navItems.map((item) => (
               <Link
@@ -77,7 +88,7 @@ const LocalFooter = () => (
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 p-4">
         <div className="flex flex-col gap-2">
-          <h3 className="text-foreground text-xl font-semibold">eDNA</h3>
+          <h3 className="text-foreground text-xl font-semibold">TaxonAI</h3>
           <p className="text-foreground/80 text-sm font-normal">
             Identifying Taxonomy and Assessing Biodiversity from eDNA Datasets
           </p>

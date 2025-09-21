@@ -45,7 +45,7 @@ const BentoCard = ({ title, description, Component }: BentoCardProps) => (
 export function BentoSection() {
   const cards = [
     {
-      title: "Upload Taxon AI sequences",
+      title: "Upload TaxonAI sequences",
       description: "Easily upload your FASTA files containing environmental DNA data.",
       Component: AiCodeReviews,
     },
@@ -90,7 +90,7 @@ export function BentoSection() {
               Empower Your Biodiversity Research
             </h2>
             <p className="w-full max-w-[600px] text-center text-muted-foreground text-lg md:text-xl font-medium leading-relaxed">
-              {/* Leverage cutting-edge AI to process Taxon AI datasets, visualize species diversity, and make informed decisions for conservation and research. Explore your data in real-time with interactive dashboards. */}
+              {/* Leverage cutting-edge AI to process TaxonAI datasets, visualize species diversity, and make informed decisions for conservation and research. Explore your data in real-time with interactive dashboards. */}
             </p>
           </div>
         </div>

@@ -136,11 +136,11 @@ export function TestimonialGridSection() {
       <div className="self-stretch py-6 md:py-8 lg:py-14 flex flex-col justify-center items-center gap-2">
         <div className="flex flex-col justify-start items-center gap-4">
           <h2 className="text-center text-foreground text-3xl md:text-4xl lg:text-[40px] font-semibold leading-tight md:leading-tight lg:leading-[40px]">
-            Effortless Taxon AI discovery for every researcher
+            Effortless TaxonAI discovery for every researcher
           </h2>
           <p className="self-stretch text-center text-muted-foreground text-sm md:text-sm lg:text-base font-medium leading-[18.20px] md:leading-relaxed lg:leading-relaxed">
             Hear how researchers uncover biodiversity faster, analyze samples seamlessly, <br />
-            and gain confidence in their results using our powerful Taxon AI tools.
+            and gain confidence in their results using our powerful TaxonAI tools.
           </p>
         </div>
       </div>
