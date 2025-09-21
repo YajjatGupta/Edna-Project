@@ -1,5 +1,7 @@
 "use client"
 
+import { Footer } from "react-day-picker";
+
 export function FooterSection() {
   return (
     <footer className="w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-neutral-100">
@@ -48,3 +50,4 @@ export function FooterSection() {
     </footer>
   )
 }
+export default Footer;
