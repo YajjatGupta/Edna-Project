@@ -9,8 +9,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, Search, User } from "lucide-react"; // only icons
-import Link from "next/link"; // correct Link import
+import { Menu, User } from "lucide-react";
+import Link from "next/link";
 
 function Header() {
   const navItems = [
@@ -27,13 +27,13 @@ function Header() {
           <span className="text-2xl font-bold">eDNA</span>
           <nav className="hidden md:flex items-center gap-2">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className="text-muted-foreground hover:text-foreground px-4 py-2 rounded-full font-medium transition-colors"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
@@ -53,13 +53,13 @@ function Header() {
               </SheetHeader>
               <nav className="flex flex-col gap-4 mt-6">
                 {navItems.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
                     className="text-muted-foreground hover:text-foreground text-lg py-2"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </SheetContent>
@@ -79,11 +79,7 @@ export default function ExportsPage() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setShowFooter(true);
-      } else {
-        setShowFooter(false);
-      }
+      setShowFooter(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -96,37 +92,28 @@ export default function ExportsPage() {
       <main className="flex-grow flex flex-col items-center pt-8 px-6 md:px-12">
         <div className="w-full max-w-4xl flex flex-col md:flex-row gap-6">
           {/* Raw Data */}
-          <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-between min-h-[320px]">
-            <div>
-              <h3 className="text-lg font-semibold">Raw Data</h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                Download unprocessed or minimally processed data
-              </p>
-              <div className="relative mt-4">
-              </div>
-            </div>
+          <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-start min-h-[320px]">
+            <h3 className="text-lg font-semibold">Raw Data</h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              Download unprocessed or minimally processed data
+            </p>
             <Button
               onClick={() => handleExport("raw")}
-              className="w-full bg-primary text-primary-foreground font-semibold mt-4"
+              className="w-full bg-primary text-primary-foreground font-semibold mt-6"
             >
               Download FASTA file
             </Button>
           </div>
 
           {/* Processed Reports */}
-          <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-between min-h-[320px]">
-            <div>
-              <h3 className="text-lg font-semibold">Processed Reports</h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                Download data after taxonomic classification and abundance
-                analysis
-              </p>
-              <div className="relative mt-4">
-              </div>
-            </div>
+          <div className="flex-1 p-6 border border-border rounded-lg bg-background flex flex-col justify-start min-h-[320px]">
+            <h3 className="text-lg font-semibold">Processed Reports</h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              Download data after taxonomic classification and abundance analysis
+            </p>
             <Button
               onClick={() => handleExport("processed")}
-              className="w-full bg-primary text-primary-foreground font-semibold mt-4"
+              className="w-full bg-primary text-primary-foreground font-semibold mt-6"
             >
               Download FASTA file
             </Button>
@@ -168,11 +155,9 @@ export default function ExportsPage() {
 
           <div className="flex flex-col gap-3">
             <h3 className="text-foreground text-xl font-semibold">Contact Us</h3>
-            <div className="flex flex-col gap-2">
-              <p className="text-foreground/80 text-sm font-normal">+91 9120731190</p>
-              <p className="text-foreground/80 text-sm font-normal">support@gmail.com</p>
-              <p className="text-foreground/80 text-sm font-normal">Greater Noida</p>
-            </div>
+            <p className="text-foreground/80 text-sm">+91 9120731190</p>
+            <p className="text-foreground/80 text-sm">support@gmail.com</p>
+            <p className="text-foreground/80 text-sm">Greater Noida</p>
           </div>
 
           <div className="flex flex-col gap-3">
