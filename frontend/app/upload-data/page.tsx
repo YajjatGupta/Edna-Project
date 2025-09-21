@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState, useRef } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Upload, User } from "lucide-react";
+import { User, Menu, Upload } from "lucide-react";
 
-// Header Component from the Exports Page
+// ------------------ Header Component ------------------
 function Header() {
   const navItems = [
     { name: "Home", href: "/" },
@@ -21,13 +22,13 @@ function Header() {
           <span className="text-2xl font-bold">eDNA</span>
           <nav className="hidden md:flex items-center gap-2">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className="text-muted-foreground hover:text-foreground px-4 py-2 rounded-full font-medium transition-colors"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
@@ -47,13 +48,13 @@ function Header() {
               </SheetHeader>
               <nav className="flex flex-col gap-4 mt-6">
                 {navItems.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
                     className="text-muted-foreground hover:text-foreground text-lg py-2"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </SheetContent>
@@ -64,7 +65,7 @@ function Header() {
   );
 }
 
-// Footer Component
+// ------------------ Footer Component ------------------
 const LocalFooter = () => (
   <footer className="w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-background">
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 p-4">
@@ -76,11 +77,11 @@ const LocalFooter = () => (
       </div>
       <div className="flex flex-col gap-3">
         <h3 className="text-foreground text-xl font-semibold">Quick Links</h3>
-        <div className="flex flex-col gap-2">
-          <a href="#" className="text-foreground/80 text-sm hover:text-foreground hover:underline">Upload</a>
-          <a href="#" className="text-foreground/80 text-sm hover:text-foreground hover:underline">Biodiversity Insights</a>
-          <a href="#" className="text-foreground/80 text-sm hover:text-foreground hover:underline">Taxonomy Result</a>
-          <a href="#" className="text-foreground/80 text-sm hover:text-foreground hover:underline">Export</a>
+        <div className="flex flex-col gap-2 text-foreground/80 text-sm font-normal">
+          <Link href="/upload-data">Upload</Link>
+          <Link href="/">Home</Link>
+          <Link href="/analysis-results">Taxonomy Result</Link>
+          <Link href="/exports">Export</Link>
         </div>
       </div>
       <div className="flex flex-col gap-3">
@@ -90,8 +91,8 @@ const LocalFooter = () => (
         <p className="text-foreground/80 text-sm">Greater Noida</p>
       </div>
       <div className="flex flex-col gap-3">
-        <h3 className="text-foreground text-xl font-semibold">NewsLetter</h3>
-        <p className="text-foreground/80 text-sm font-normal">Subscribe to our NewsLetter</p>
+        <h3 className="text-foreground text-xl font-semibold">Newsletter</h3>
+        <p className="text-foreground/80 text-sm font-normal">Subscribe to our Newsletter</p>
         <div className="flex flex-col gap-2 mt-2">
           <input
             type="email"
@@ -107,13 +108,12 @@ const LocalFooter = () => (
   </footer>
 );
 
-// Define the props interface for MessageModal
+// ------------------ Message Modal ------------------
 interface MessageModalProps {
   message: string;
   onClose: () => void;
 }
 
-// Message Modal Component
 const MessageModal = ({ message, onClose }: MessageModalProps) => (
   <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
     <div className="bg-card p-6 rounded-lg shadow-xl max-w-sm w-full">
@@ -126,12 +126,12 @@ const MessageModal = ({ message, onClose }: MessageModalProps) => (
   </div>
 );
 
+// ------------------ Upload Page Component ------------------
 export default function UploadPage() {
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [messageModal, setMessageModal] = useState({ visible: false, message: "" });
 
-  // Drag-and-drop handlers
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => { e.preventDefault(); e.stopPropagation(); };
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault(); e.stopPropagation();
@@ -153,9 +153,7 @@ export default function UploadPage() {
       const res = await fetch("http://127.0.0.1:5001/analyze", { method: "POST", body: formData });
       if (res.ok) {
         setMessageModal({ visible: true, message: "Analysis submitted! Redirecting..." });
-        setTimeout(() => {
-          window.location.href = "/analysis-results";
-        }, 2000);
+        setTimeout(() => { window.location.href = "/analysis-results"; }, 2000);
       } else {
         const errorData = await res.json();
         setMessageModal({ visible: true, message: `Error: ${errorData.message}` });
@@ -167,10 +165,8 @@ export default function UploadPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
-      {/* Navbar */}
       <Header />
 
-      {/* Upload Section */}
       <main className="flex-grow flex flex-col items-center pt-8 px-6 md:px-12">
         <div className="w-full max-w-2xl p-6 bg-card rounded-lg border border-border shadow-lg">
           <div
@@ -184,8 +180,14 @@ export default function UploadPage() {
             <p className="text-sm text-muted-foreground text-center mt-2">
               Upload your FASTA file containing eDNA sequence data
             </p>
-            <input type="file" ref={fileInputRef} onChange={handleFileChange} multiple className="hidden" accept=".fasta,.fna,.fa" />
-
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              multiple
+              className="hidden"
+              accept=".fasta,.fna,.fa"
+            />
             {files.length > 0 && (
               <div className="mt-4 text-center">
                 <p className="text-sm font-semibold">Selected Files:</p>
@@ -207,10 +209,8 @@ export default function UploadPage() {
         </div>
       </main>
 
-      {/* Footer */}
       <LocalFooter />
 
-      {/* Message Modal */}
       {messageModal.visible && (
         <MessageModal
           message={messageModal.message}

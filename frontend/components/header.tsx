@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, User, Sun } from "lucide-react";
-import Link from "next/link";
+import { Menu, User } from "lucide-react";
 
 interface HeaderProps {
   isLoggedIn: boolean;
@@ -14,12 +14,22 @@ interface HeaderProps {
 }
 
 const Header = ({ isLoggedIn, onGetStartedClick, onLoginClick, onUploadClick }: HeaderProps) => {
+  const router = useRouter();
+
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "Upload Result", href: "/upload-data" },
-    { name: "Taxonomy Result", href: "/analysis-results" },
-    { name: "Exports", href: "/exports" },
+    { name: "About Us", href: "#testimonials-section" },
+    { name: "Overview", href: "#features-section" },
   ];
+
+  const handleNavClick = (href: string) => {
+    if (href.startsWith("#")) {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push(href);
+    }
+  };
 
   return (
     <header className="w-full max-w-[1320px] mx-auto py-4 px-6 border-b border-border flex items-center justify-between">
@@ -27,21 +37,18 @@ const Header = ({ isLoggedIn, onGetStartedClick, onLoginClick, onUploadClick }: 
         <span className="text-2xl font-bold">eDNA</span>
         <nav className="hidden md:flex items-center gap-2">
           {navItems.map((item) => (
-            <Link
+            <button
               key={item.name}
-              href={item.href}
+              onClick={() => handleNavClick(item.href)}
               className="text-muted-foreground hover:text-foreground px-4 py-2 rounded-full font-medium transition-colors"
             >
               {item.name}
-            </Link>
+            </button>
           ))}
         </nav>
       </div>
 
       <div className="flex items-center gap-4">
-        {/* <Button className="p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 hidden md:block">
-          <Sun className="h-5 w-5" />
-        </Button> */}
         <Button className="p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 hidden md:block">
           <User className="h-5 w-5" />
         </Button>
@@ -81,13 +88,13 @@ const Header = ({ isLoggedIn, onGetStartedClick, onLoginClick, onUploadClick }: 
             </SheetHeader>
             <nav className="flex flex-col gap-4 mt-6">
               {navItems.map((item) => (
-                <Link
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="text-muted-foreground hover:text-foreground text-lg py-2"
+                  onClick={() => handleNavClick(item.href)}
+                  className="text-muted-foreground hover:text-foreground text-lg py-2 w-full text-left"
                 >
                   {item.name}
-                </Link>
+                </button>
               ))}
               {!isLoggedIn ? (
                 <Button onClick={onGetStartedClick} className="w-full mt-4 bg-secondary text-secondary-foreground">

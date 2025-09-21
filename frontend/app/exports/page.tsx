@@ -9,7 +9,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, Search, User, Sun } from "lucide-react";
+import { Menu, Search, User } from "lucide-react"; // only icons
+import Link from "next/link"; // correct Link import
 
 function Header() {
   const navItems = [
@@ -37,9 +38,6 @@ function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          {/* <Button className="p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 hidden md:block">
-            <Sun className="h-5 w-5" />
-          </Button> */}
           <Button className="p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 hidden md:block">
             <User className="h-5 w-5" />
           </Button>
@@ -79,7 +77,6 @@ export default function ExportsPage() {
     console.log(`Exporting ${type} data...`);
   };
 
-  // Show footer after scrolling a little
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -88,17 +85,14 @@ export default function ExportsPage() {
         setShowFooter(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
-      {/* Header */}
       <Header />
 
-      {/* Main Content */}
       <main className="flex-grow flex flex-col items-center pt-8 px-6 md:px-12">
         <div className="w-full max-w-4xl flex flex-col md:flex-row gap-6">
           {/* Raw Data */}
@@ -158,7 +152,7 @@ export default function ExportsPage() {
         </div>
       </main>
 
-      {/* Footer (appears after scrolling) */}
+      {/* Footer */}
       <footer
         className={`w-full max-w-[1320px] mx-auto px-5 py-10 md:py-[70px] bg-background mt-20 transition-opacity duration-700 ${
           showFooter ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -171,31 +165,36 @@ export default function ExportsPage() {
               Identifying Taxonomy and Assessing Biodiversity from eDNA Datasets
             </p>
           </div>
+
           <div className="flex flex-col gap-3">
-            <h3 className="text-foreground text-xl font-semibold">
-              Quick Links
-            </h3>
+            <h3 className="text-foreground text-xl font-semibold">Quick Links</h3>
             <div className="flex flex-col gap-2">
-              <a href="#" className="text-foreground/80 text-sm font-normal transition-transform transform hover:scale-[1.02] hover:underline">Upload</a>
-              <a href="#" className="text-foreground/80 text-sm font-normal transition-transform transform hover:scale-[1.02] hover:underline">Biodiversity Insights</a>
-              <a href="#" className="text-foreground/80 text-sm font-normal transition-transform transform hover:scale-[1.02] hover:underline">Taxonomy Result</a>
-              <a href="#" className="text-foreground/80 text-sm font-normal transition-transform transform hover:scale-[1.02] hover:underline">Export</a>
+              <Link href="/upload-data" className="text-foreground/80 text-sm font-normal hover:underline">
+                Upload
+              </Link>
+              <Link href="/" className="text-foreground/80 text-sm font-normal hover:underline">
+                Home
+              </Link>
+              <Link href="/analysis-results" className="text-foreground/80 text-sm font-normal hover:underline">
+                Taxonomy Result
+              </Link>
+              <Link href="/exports" className="text-foreground/80 text-sm font-normal hover:underline">
+                Export
+              </Link>
             </div>
           </div>
+
           <div className="flex flex-col gap-3">
-            <h3 className="text-foreground text-xl font-semibold">
-              Contact Us
-            </h3>
+            <h3 className="text-foreground text-xl font-semibold">Contact Us</h3>
             <div className="flex flex-col gap-2">
-              <p className="text-foreground/80 text-sm font-normal transition-transform transform hover:scale-[1.02]">+91 9120731190</p>
-              <p className="text-foreground/80 text-sm font-normal transition-transform transform hover:scale-[1.02]">support@gmail.com</p>
-              <p className="text-foreground/80 text-sm font-normal transition-transform transform hover:scale-[1.02]">Greater Noida</p>
+              <p className="text-foreground/80 text-sm font-normal">+91 9120731190</p>
+              <p className="text-foreground/80 text-sm font-normal">support@gmail.com</p>
+              <p className="text-foreground/80 text-sm font-normal">Greater Noida</p>
             </div>
           </div>
+
           <div className="flex flex-col gap-3">
-            <h3 className="text-foreground text-xl font-semibold">
-              Newsletter
-            </h3>
+            <h3 className="text-foreground text-xl font-semibold">Newsletter</h3>
             <p className="text-foreground/80 text-sm font-normal">Subscribe to our Newsletter</p>
             <div className="flex flex-col gap-2 mt-2">
               <input
@@ -203,7 +202,7 @@ export default function ExportsPage() {
                 placeholder="Enter your Email"
                 className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card text-foreground"
               />
-              <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium transition-transform transform hover:scale-[1.02]">
+              <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium hover:bg-primary/90 transition">
                 Subscribe
               </button>
             </div>
