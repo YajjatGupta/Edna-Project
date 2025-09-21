@@ -7,8 +7,11 @@ import { Menu, User } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/footer-section"; 
 
-// IMPORT THE RAW DATA FROM THE NEW FILE
+// IMPORT THE RAW DATA
 import { rawData } from "@/lib/data";
+
+// IMPORT THE NEWLY CREATED IMAGE DATA FILE
+import { speciesImages } from "@/lib/images";
 
 // Function to parse the CSV string into an array of objects
 const parseCSV = (csvString: string) => {
@@ -129,6 +132,7 @@ const LocalFooter = () => (
 // Main Page Component
 export default function AnalysisResultsPage() {
   const [selectedSpecies, setSelectedSpecies] = useState<any>(null);
+  const [selectedImages, setSelectedImages] = useState<string[]>([]);
 
   // Get a unique list of species for the dropdown
   const uniqueSpecies = Array.from(new Set(speciesData.map(item => item["Predicted Species"])));
@@ -137,6 +141,10 @@ export default function AnalysisResultsPage() {
     const selectedName = event.target.value;
     const species = speciesData.find(item => item["Predicted Species"] === selectedName);
     setSelectedSpecies(species || null);
+    
+    // Set the corresponding images based on the selected species
+    const images = speciesImages[selectedName] || [];
+    setSelectedImages(images);
   };
 
   return (
@@ -163,7 +171,6 @@ export default function AnalysisResultsPage() {
               ))}
             </select>
             
-            {/* START OF NEW CODE: This block displays the selected species and confidence */}
             {selectedSpecies && (
               <div className="mt-6 p-6 border rounded-lg bg-gray-50 dark:bg-gray-800">
                 <p className="text-xl font-medium">
@@ -174,8 +181,6 @@ export default function AnalysisResultsPage() {
                 </p>
               </div>
             )}
-            {/* END OF NEW CODE */}
-
           </div>
 
           {/* Taxonomic Tree Box */}
@@ -201,34 +206,36 @@ export default function AnalysisResultsPage() {
 
         {/* 5 Larger Boxes */}
         <div className="flex flex-wrap gap-6 max-w-[1320px] mx-auto justify-center">
-          {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="relative bg-card p-6 rounded-lg shadow-md min-h-[210px] flex items-center justify-center transform transition-transform duration-300 cursor-pointer hover:scale-105"
-              style={
-                i === 4
-                  ? { marginLeft: "auto", marginRight: "auto", width: "48%", transformOrigin: "center", minHeight: "210px" }
-                  : { width: "48%", transformOrigin: "center", minHeight: "210px" }
-              }
-            >
-              {i < 4 && <span className="absolute text-4xl font-bold text-muted-foreground">+</span>}
-              <p className="text-center text-sm">{`Box ${i + 1}`}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* 10 Scrollable Boxes */}
-        <div className="overflow-x-auto max-w-[1320px] mx-auto">
-          <div className="flex gap-2 w-max">
-            {[...Array(10)].map((_, i) => (
+          {selectedImages.length > 0 ? (
+            selectedImages.map((imagePath, i) => (
               <div
                 key={i}
-                className="min-w-[140px] h-40 bg-card p-3 rounded-lg shadow-md flex items-center justify-center text-sm transform transition-transform duration-300 hover:scale-105"
+                className="relative bg-card p-6 rounded-lg shadow-md min-h-[210px] flex items-center justify-center transform transition-transform duration-300 cursor-pointer hover:scale-105"
+                style={{
+                  width: "48%",
+                  transformOrigin: "center",
+                  minHeight: "210px",
+                }}
               >
-                Small Box {i + 1}
+                <img src={imagePath} alt={`Visualisation ${i + 1}`} className="object-cover w-full h-full" />
               </div>
-            ))}
-          </div>
+            ))
+          ) : (
+            [...Array(5)].map((_, i) => (
+              <div
+                key={i}
+                className="relative bg-card p-6 rounded-lg shadow-md min-h-[210px] flex items-center justify-center transform transition-transform duration-300 cursor-pointer hover:scale-105"
+                style={
+                  i === 4
+                    ? { marginLeft: "auto", marginRight: "auto", width: "48%", transformOrigin: "center", minHeight: "210px" }
+                    : { width: "48%", transformOrigin: "center", minHeight: "210px" }
+                }
+              >
+                {i < 4 && <span className="absolute text-4xl font-bold text-muted-foreground">+</span>}
+                <p className="text-center text-sm">{`Box ${i + 1}`}</p>
+              </div>
+            ))
+          )}
         </div>
       </main>
 
