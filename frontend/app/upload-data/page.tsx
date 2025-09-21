@@ -6,6 +6,12 @@ import { Upload } from "lucide-react";
 
 export default function UploadPage() {
   const [files, setFiles] = useState<File[]>([]);
+  const [metadata, setMetadata] = useState({
+    sampleLocation: '',
+    sampleType: '',
+    collectionDate: '',
+    samplingDepth: ''
+  });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -39,6 +45,30 @@ export default function UploadPage() {
     fileInputRef.current?.click();
   };
 
+  const handleMetadataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setMetadata(prev => ({ ...prev, [name]: value }));
+  };
+
+  // New function to handle the analysis
+  const handleStartAnalysis = () => {
+    if (files.length === 0) {
+      alert("Please upload at least one file before starting the analysis.");
+      return;
+    }
+    // Here you would send the files and metadata to your backend
+    console.log("Starting analysis with files:", files);
+    console.log("Metadata:", metadata);
+
+    // In a real application, you would create a FormData object and send it
+    // const formData = new FormData();
+    // files.forEach(file => {
+    //   formData.append('files', file);
+    // });
+    // formData.append('metadata', JSON.stringify(metadata));
+    // fetch('/api/analyze', { method: 'POST', body: formData });
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col items-center p-8">
       <header className="w-full max-w-4xl mb-8">
@@ -54,7 +84,6 @@ export default function UploadPage() {
             Upload your FASTA file containing your eDNA sequence data
           </p>
           <div
-            // Updated class to increase padding and dimensions
             className="mt-4 p-16 border border-dashed rounded-lg text-center cursor-pointer min-h-[200px] w-full"
             onDragOver={handleDragOver}
             onDrop={handleDrop}
@@ -69,9 +98,9 @@ export default function UploadPage() {
             type="file"
             ref={fileInputRef}
             onChange={handleFileChange}
-            multiple // Allow multiple files
+            multiple
             className="hidden"
-            accept=".fasta,.fna,.fa" // <-- Add this line
+            accept=".fasta,.fna,.fa"
           />
           {files.length > 0 && (
             <div className="mt-4 text-center">
@@ -88,7 +117,10 @@ export default function UploadPage() {
 
       {/* Action Buttons */}
       <div className="mt-8 flex gap-4">
-        <Button className="bg-primary text-primary-foreground">
+        <Button 
+          className="bg-primary text-primary-foreground"
+          onClick={handleStartAnalysis} // Add the click handler here
+        >
           Start Analysis
         </Button>
         {files.length > 0 && (
