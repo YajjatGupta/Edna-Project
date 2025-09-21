@@ -17,7 +17,7 @@ export function FooterSection() {
           <h3 className="text-black text-xl font-semibold">Quick Links</h3>
           <div className="flex flex-col gap-2">
             <a href="#" className="text-black/80 text-sm font-normal hover:underline">Upload</a>
-            <a href="#" className="text-black/80 text-sm font-normal hover:underline">Biodiversity Insights</a>
+            {/* <a href="#" className="text-black/80 text-sm font-normal hover:underline">Biodiversity Insights</a> */}
             <a href="#" className="text-black/80 text-sm font-normal hover:underline">Taxonomy Result</a>
             <a href="#" className="text-black/80 text-sm font-normal hover:underline">Export</a>
           </div>
