@@ -98,10 +98,12 @@ export default function ExportsPage() {
               Download unprocessed or minimally processed data
             </p>
             <Button
-              onClick={() => handleExport("raw")}
+              asChild
               className="w-full bg-primary text-primary-foreground font-semibold mt-6"
             >
-              Download FASTA file
+              <a href="/downloads/eDNA_testing.fasta" download>
+                Download FASTA file
+              </a>
             </Button>
           </div>
 
@@ -111,13 +113,16 @@ export default function ExportsPage() {
             <p className="text-sm text-muted-foreground mt-1">
               Download data after taxonomic classification and abundance analysis
             </p>
-            <Button
-              onClick={() => handleExport("processed")}
-              className="w-full bg-primary text-primary-foreground font-semibold mt-6"
-            >
-              Download FASTA file
-            </Button>
-          </div>
+              <Button
+                asChild
+                className="w-full bg-primary text-primary-foreground font-semibold mt-6"
+              >
+                <a href="/downloads/data.txt" download>
+                  Download txt file
+                </a>
+              </Button>
+            </div>
+
         </div>
       </main>
 
