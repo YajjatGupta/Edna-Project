@@ -274,44 +274,69 @@ export default function AnalysisResultsPage() {
               </div>
             </div>
 
-            {/* Image Boxes */}
-            <div className="flex flex-wrap gap-6 max-w-[1320px] mx-auto justify-center">
-              {selectedImages.length > 0 ? (
-                selectedImages.map((imagePath, i) => (
-                  <div
-                    key={i}
-                    className="relative bg-card p-4 rounded-lg shadow-md flex items-center justify-center hover:scale-105 transform transition-transform duration-300"
-                    style={{
-                      width: "48%",
-                      minHeight: "210px",
-                    }}
-                  >
-                    <Image
-                      src={imagePath}
-                      alt={`Visualisation ${i + 1}`}
-                      width={500}
-                      height={300}
-                      className="object-contain w-full h-auto rounded-lg"
-                    />
-                  </div>
-                ))
-              ) : (
-                [...Array(5)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="relative bg-card p-6 rounded-lg shadow-md min-h-[210px] flex items-center justify-center transform transition-transform duration-300 cursor-pointer hover:scale-105"
-                    style={{
-                      width: "48%",
-                      transformOrigin: "center",
-                      minHeight: "210px",
-                    }}
-                  >
-                    <span className="text-sm text-muted-foreground">
-                      No image
-                    </span>
-                  </div>
-                ))
-              )}
+            {/* Image Boxes with Individual Titles */}
+            <div className="max-w-[1320px] mx-auto">
+              <h2 className="text-lg font-semibold mb-6">Species Visualisations</h2>
+              <div className="flex flex-wrap gap-6 justify-center">
+                {selectedImages.length > 0 ? (
+                  selectedImages.map((imagePath, i) => {
+                    // Titles for each image box
+                    const titles = [
+                      "MFE structure (base pair probability)",
+                      "MFE structure (positional entropy)",
+                      "Centroid structure (base pair probability)",
+                      "Centroid structure (positional entropy)",
+                      "Mountain plot",
+                    ];
+                    return (
+                      <div
+                        key={i}
+                        className="relative bg-card p-4 rounded-lg shadow-md hover:scale-105 transform transition-transform duration-300"
+                        style={{ width: "48%", minHeight: "250px" }}
+                      >
+                        {/* Title */}
+                        <h3 className="text-md font-medium mb-3 text-center">
+                          {titles[i] || `Visualisation ${i + 1}`}
+                        </h3>
+
+                        {/* Image */}
+                        <div className="flex items-center justify-center">
+                          <Image
+                            src={imagePath}
+                            alt={titles[i] || `Visualisation ${i + 1}`}
+                            width={500}
+                            height={300}
+                            className="object-contain w-full h-auto rounded-lg"
+                          />
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  [...Array(5)].map((_, i) => {
+                    const titles = [
+                      "MFE structure (base pair probability)",
+                      "MFE structure (positional entropy)",
+                      "Centroid structure (base pair probability)",
+                      "Centroid structure (positional entropy)",
+                      "Mountain plot",
+                    ];
+                    return (
+                      <div
+                        key={i}
+                        className="relative bg-card p-6 rounded-lg shadow-md min-h-[250px] flex flex-col items-center justify-center transform transition-transform duration-300 cursor-pointer hover:scale-105"
+                        style={{ width: "48%", minHeight: "250px" }}
+                      >
+                        {/* Title */}
+                        <h3 className="text-md font-medium mb-3 text-center">
+                          {titles[i]}
+                        </h3>
+                        <span className="text-sm text-muted-foreground">No image</span>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
             </div>
           </>
         ) : (
